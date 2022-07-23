@@ -4,11 +4,18 @@
 .page{
     position: relative;
     margin: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     background: #000000;
     color: #FFFFFF;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     font-family:  'Inter', 'Arial', sans-serif;
 }
 
@@ -34,14 +41,20 @@
     z-index: 2;
     background-color: #FFFFFF;
     color: #000000;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     position: fixed;
     min-width: 430px;
     min-height: 330px;
     top: calc(50% - 330px/2);
     left: calc(50% - 430px/2);
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
 }
 
@@ -57,9 +70,16 @@
     margin: 0;
     padding: 54px 0 48px;
     border: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 30px;
 
 }
@@ -70,7 +90,9 @@
     border-bottom: 1px solid rgba(0, 0, 0, .2);
     padding: 0 0 13px 0;
     min-width: 358px;
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
     font-size: 14px;
     line-height: 17px;
     opacity: 1;
@@ -81,7 +103,9 @@
 }
 
 .popup__save{
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
     margin: 0;
     padding: 0;
     border: 0;
@@ -91,6 +115,8 @@
     min-height: 50px;
     text-align: center;
     background-color: #000000;
+    -webkit-transition: opacity .5s ease;
+    -o-transition: opacity .5s ease;
     transition: opacity .5s ease;
 }
 
@@ -112,6 +138,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    -webkit-transition: opacity .5s ease;
+    -o-transition: opacity .5s ease;
     transition: opacity .5s ease;
 }
 
@@ -135,15 +163,28 @@
 .profile{
     width: 100%;
     padding-top: 40px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .profile__person{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     min-width: 486px;
 
 }
@@ -154,9 +195,16 @@
 }
 
 .profile__person-desription{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     gap: 16px;
 }
 
@@ -171,7 +219,8 @@
 .profile__edit-button{
     width: 24px;
     height: 24px;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     margin: 0 0 0 18px;
     padding: 0;
     border: 1px solid #FFFFFF;
@@ -179,6 +228,8 @@
     background-image: url('../images/pencel.svg');
    background-repeat: no-repeat;
    background-position: center;
+   -webkit-transition: opacity .5s ease;
+   -o-transition: opacity .5s ease;
    transition: opacity .5s ease;
 }
 
@@ -197,7 +248,8 @@
 .profile__add-button{
     width: 150px;
     height: 50px;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     margin: 0;
     padding: 0;
     border: 2px solid #FFFFFF;
@@ -206,6 +258,8 @@
     background-image: url('../images/plus.svg');
    background-repeat: no-repeat;
    background-position: center;
+   -webkit-transition: opacity .5s ease;
+   -o-transition: opacity .5s ease;
    transition: opacity .5s ease;
 }
 
@@ -216,10 +270,17 @@
 
 .places-cards{
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     gap: 17px;
     padding-top: 50px;
 }
@@ -228,7 +289,8 @@
     background-color: #FFFFFF;
     border-radius: 10px;
     overflow: hidden;
-    flex-basis: 282px;
+    -ms-flex-preferred-size: 282px;
+        flex-basis: 282px;
     min-height: 361px;
 }
 
@@ -238,10 +300,18 @@
 }
 
 .card__attributes-container{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     width: 100%;
     min-height: calc(100% - 282px);
 }
@@ -254,7 +324,8 @@
     max-width: 190px;
     margin: 0;
     padding: 25px 0 31px 21px;
-    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -269,6 +340,8 @@
    background-repeat: no-repeat;
    background-size: cover;
    background-position: center;
+    -webkit-transition: opacity .5s ease;
+    -o-transition: opacity .5s ease;
     transition: opacity .5s ease;
 }
 
@@ -330,20 +403,35 @@
 
     .profile{
         padding-top: 42px;
-        flex-direction: column;
-        align-items: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 
     .profile__person{
-        flex-direction: column;
-        align-items: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
         min-width: 320px;
     }
 
     .profile__person-desription{
         padding: 26px 19px 36px;
-        flex-direction: column;
-        align-items: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
         gap: 14px;
     }
 
@@ -394,7 +482,9 @@
     }
 
     .popup__caption{
-        align-self: center;
+        -ms-flex-item-align: center;
+            -ms-grid-row-align: center;
+            align-self: center;
         font-size: 18px;
         line-height: 22px;
         padding: 25px 0 0;
@@ -417,6 +507,5 @@
     left: calc(50% + 282px/2);
     }
 }
-
 
 
