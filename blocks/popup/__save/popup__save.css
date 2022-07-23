@@ -1,0 +1,31 @@
+.popup__save{
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    color: #FFFFFF;
+    min-width: 358px;
+    min-height: 50px;
+    text-align: center;
+    background-color: #000000;
+    -webkit-transition: opacity .5s ease;
+    -o-transition: opacity .5s ease;
+    transition: opacity .5s ease;
+}
+
+.popup__save:hover{
+    opacity: .6;
+   cursor: pointer;
+}
+
+@media screen and (max-width: 767.9px){
+
+    .popup__save{
+        min-width: 238px;
+        min-height: 46px;
+        width: 84.4%;
+    }
+}

@@ -1,0 +1,8 @@
+.card{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    overflow: hidden;
+    -ms-flex-preferred-size: 282px;
+        flex-basis: 282px;
+    min-height: 361px;
+}

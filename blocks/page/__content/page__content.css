@@ -1,0 +1,27 @@
+.page__content{
+    width: 68.75%;
+    max-width: 880px;
+}
+
+@media screen and (max-width: 1279.9px){
+
+    .page__content{
+        min-width: calc(282px*3 + 17px*2);
+    }
+}
+
+@media screen and (max-width: 1023.9px){
+
+    .page__content{
+        width: 85%;
+        min-width: 700px;
+    }
+}
+
+@media screen and (max-width: 768px){
+
+    .page__content{
+        width: 100%;
+        min-width: 320px;
+    }
+}

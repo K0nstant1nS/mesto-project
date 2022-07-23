@@ -1,0 +1,25 @@
+.popup__text-input{
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    padding: 0 0 13px 0;
+    min-width: 358px;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    font-size: 14px;
+    line-height: 17px;
+    opacity: 1;
+}
+
+.popup__text-input:focus{
+    border: 0;
+}
+
+@media screen and (max-width: 767.9px){
+
+    .popup__text-input{
+        min-width: 238px;
+        width: 84.4%;
+    }
+}

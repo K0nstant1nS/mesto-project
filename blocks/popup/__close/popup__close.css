@@ -1,0 +1,37 @@
+.popup__close{
+    position: fixed;
+    left: calc(50% + 8px + 430px/2);
+    top: calc(50% - 8px - 330px/2 - 32px);
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: 0;
+    border: 0;
+    background-image: url('../../../images/Close-icon.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-transition: opacity .5s ease;
+    -o-transition: opacity .5s ease;
+    transition: opacity .5s ease;
+}
+
+.popup__close:hover{
+    opacity: .6;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767.9px){
+
+    .popup__close{
+        left: calc(50% - 8px - 22px + 282px/2);
+    }
+}
+
+@media screen and (max-height: 420px) and (max-width: 767.9px){
+
+    .popup__close{
+    top: calc(50% - 330px/2);
+    left: calc(50% + 282px/2);
+    }
+}

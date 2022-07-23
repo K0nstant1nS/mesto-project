@@ -1,0 +1,32 @@
+.profile__edit-button{
+    width: 24px;
+    height: 24px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0 0 0 18px;
+    padding: 0;
+    border: 1px solid #FFFFFF;
+    background: 0;
+    background-image: url('../../../images/pencel.svg');
+   background-repeat: no-repeat;
+   background-position: center;
+   -webkit-transition: opacity .5s ease;
+   -o-transition: opacity .5s ease;
+   transition: opacity .5s ease;
+}
+
+.profile__edit-button:hover{
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767.9px){
+
+    .profile__edit-button{
+        margin-left: 10px;
+        width: 18px;
+        height: 18px;
+        padding: 0;
+
+    }
+}
