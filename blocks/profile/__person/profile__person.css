@@ -6,12 +6,14 @@
         -ms-flex-pack: justify;
             justify-content: space-between;
     min-width: 486px;
+    gap: 30px;
 
 }
 
 @media screen and (max-width: 767.9px){
 
     .profile__person{
+        gap: 0;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
