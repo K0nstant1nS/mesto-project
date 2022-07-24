@@ -16,6 +16,7 @@
 @media screen and (max-width: 767.9px){
 
     .profile__person-desription{
+        width: 100%;
         padding: 26px 0 36px;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
