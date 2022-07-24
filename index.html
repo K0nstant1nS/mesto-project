@@ -7,85 +7,86 @@
     <meta name="author" content="Соловьев Константин">
     <meta name="keywords" content="Mesto">
     <link rel="stylesheet" href="./pages/index.css">
-    <title>Document</title>
+    <title>Место</title>
 </head>
 <body class="page">
     <div class="page__content">
         <header class="header">
-            <img alt="Лого" src="./images/Mesto_logo.svg" class="header__logo">
+            <a><img class="header__logo" alt="Лого" src="./images/Mesto_logo.svg"></a>
         </header>
         <section class="profile">
             <div class="profile__person">
                 <img alt="Жак-Ив Кусто" src="./images/kusto.jpg" class="profile__image">
                 <div class="profile__person-desription">
-                    <div><h1 class="profile__name">Жак-Ив Кусто</h1><button class="profile__edit-button"></button></div>
+                    <div class="profile__name-and-edit"><h1 class="profile__name">Жак-Ив Кусто</h1><button type="button" class="profile__edit-button"></button></div>
                     <p class="profile__about">Исследователь океана</p>
                 </div>
             </div>
-            <button class="profile__add-button"></button>
+            <button type="button" class="profile__add-button"></button>
         </section>
         <section class="places-cards">
             <article class="card">
                 <img alt="Монастырь в горах" src="./images/karachaevo.jpg" class="card__image">
                 <div class="card__attributes-container">
-                    <h2 class="card__caption">Карачаевск</h2><button class="card__like card__like_disabled"></button>
+                    <h2 class="card__caption">Карачаевск</h2><button type="button" class="card__like card__like_disabled"></button>
                 </div>
             </article>
             <article class="card">
                 <img alt="Вид на гору с полей" src="./images/elbrus.jpg" class="card__image">
                 <div class="card__attributes-container">
-                    <h2 class="card__caption">Гора Эльбрус</h2><button class="card__like card__like_disabled"></button>
+                    <h2 class="card__caption">Гора Эльбрус</h2><button type="button" class="card__like card__like_disabled"></button>
                 </div>
             </article>
             <article class="card">
                 <img alt="Скалистая гора" src="./images/dombay.jpg" class="card__image">
                 <div class="card__attributes-container">
-                    <h2 class="card__caption">Домбай</h2><button class="card__like card__like_disabled"></button>
+                    <h2 class="card__caption">Домбай</h2><button type="button" class="card__like card__like_disabled"></button>
                 </div>
             </article>
             <article class="card">
                 <img alt="Вид на гору с полей" src="./images/elbrus.jpg" class="card__image">
                 <div class="card__attributes-container">
-                    <h2 class="card__caption">Гора Эльбрус</h2><button class="card__like card__like_disabled"></button>
+                    <h2 class="card__caption">Гора Эльбрус</h2><button type="button" class="card__like card__like_disabled"></button>
                 </div>
             </article>
             <article class="card">
                 <img alt="Скалистая гора" src="./images/dombay.jpg" class="card__image">
                 <div class="card__attributes-container">
-                    <h2 class="card__caption">Домбай</h2><button class="card__like card__like_disabled"></button>
+                    <h2 class="card__caption">Домбай</h2><button type="button" class="card__like card__like_disabled"></button>
                 </div>
             </article>
             <article class="card">
                 <img alt="Монастырь в горах" src="./images/karachaevo.jpg" class="card__image">
                 <div class="card__attributes-container">
-                    <h2 class="card__caption">Карачаево-Черкеск</h2><button class="card__like card__like_disabled"></button>
+                    <h2 class="card__caption">Карачаево-Черкеск</h2><button type="button" class="card__like card__like_disabled"></button>
                 </div>
             </article>
         </section>
         <footer class="footer">
             <p class="footer__author">© 2022. Соловьев Константин</p>
         </footer>
-    <div class="popup popup_closed">
-        <form class="popup__profile-popup">
-            <h3 class="popup__caption">Редактировать профиль</h3>
+</div>
+<div class="popup">
+    <div class="popup__profile-popup">
+        <h3 class="popup__caption">Редактировать профиль</h3>
+        <form name="guest-form" class="popup__profile-form">
             <fieldset class="popup__person">
-                <input class="popup__text-input" type="text" value="Жак-Ив Кусто">
-                <input class="popup__text-input" value="Исследователь океана" type="text">
+                <input name="guest-name" class="popup__text-input" type="text" value="Жак-Ив Кусто">
+                <input name="guest-about" class="popup__text-input" value="Исследователь океана" type="text">
             </fieldset>
-            <button type="button" class="popup__save">Сохранить</button>
-            <button type="button" class="popup__close"></button>
+            <button type="submit" class="popup__save">Сохранить</button>
         </form>
+        <button type="button" class="popup__close"></button>
     </div>
 </div>
 <!--Накидал на скорую руку, можете раскоментировать для работы popup и лайков-->
- <!-- <script>
+ <script>
     let a = document.getElementsByClassName("profile__edit-button")[0]
     let b = document.getElementsByClassName("popup__close")[0]
     let c = document.getElementsByClassName("popup")[0]
     let d = document.getElementsByClassName("card__like")
 
     function OpenClose(){
-        c.classList.toggle("popup_closed")
         c.classList.toggle("popup_opened")
     }
 
@@ -102,6 +103,6 @@
 
     a.addEventListener("click",OpenClose)
     b.addEventListener("click",OpenClose)
-</script> -->
+</script>
 </body>
 </html>
