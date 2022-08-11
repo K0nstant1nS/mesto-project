@@ -25,42 +25,14 @@
             <button type="button" class="profile__add-button"></button>
         </section>
         <section class="places-cards">
+        <template id="card-template">
             <article class="card">
-                <img alt="Монастырь в горах" src="./images/karachaevo.jpg" class="card__image">
+                <img alt="Монастырь в горах" src="" class="card__image">
                 <div class="card__attributes-container">
-                    <h2 class="card__caption">Карачаевск</h2><button type="button" class="card__like card__like_disabled"></button>
+                    <h2 class="card__caption"></h2><button type="button" class="card__like card__like_disabled"></button>
                 </div>
             </article>
-            <article class="card">
-                <img alt="Вид на гору с полей" src="./images/elbrus.jpg" class="card__image">
-                <div class="card__attributes-container">
-                    <h2 class="card__caption">Гора Эльбрус</h2><button type="button" class="card__like card__like_disabled"></button>
-                </div>
-            </article>
-            <article class="card">
-                <img alt="Скалистая гора" src="./images/dombay.jpg" class="card__image">
-                <div class="card__attributes-container">
-                    <h2 class="card__caption">Домбай</h2><button type="button" class="card__like card__like_disabled"></button>
-                </div>
-            </article>
-            <article class="card">
-                <img alt="Вид на гору с полей" src="./images/elbrus.jpg" class="card__image">
-                <div class="card__attributes-container">
-                    <h2 class="card__caption">Гора Эльбрус</h2><button type="button" class="card__like card__like_disabled"></button>
-                </div>
-            </article>
-            <article class="card">
-                <img alt="Скалистая гора" src="./images/dombay.jpg" class="card__image">
-                <div class="card__attributes-container">
-                    <h2 class="card__caption">Домбай</h2><button type="button" class="card__like card__like_disabled"></button>
-                </div>
-            </article>
-            <article class="card">
-                <img alt="Монастырь в горах" src="./images/karachaevo.jpg" class="card__image">
-                <div class="card__attributes-container">
-                    <h2 class="card__caption">Карачаево-Черкеск</h2><button type="button" class="card__like card__like_disabled"></button>
-                </div>
-            </article>
+        </template>
         </section>
         <footer class="footer">
             <p class="footer__author">© 2022. Соловьев Константин</p>
@@ -96,7 +68,7 @@
 <script>
 
   //Отмена поведения по умолчанию для submit
-    let saveButtonElementsList = document.querySelectorAll(".popup__save");
+    const saveButtonElementsList = document.querySelectorAll(".popup__save");
 
     function formSubmitHandler (evt) {
         evt.preventDefault(); 
@@ -107,9 +79,9 @@
     })
 
   // Код для закрытия/открытия форм
-    let closeButtonsList = document.querySelectorAll(".popup__close");
-    let profileEditButton = document.querySelector(".profile__edit-button");
-    let profileAddButton = document.querySelector(".profile__add-button");
+    const closeButtonsList = document.querySelectorAll(".popup__close");
+    const profileEditButton = document.querySelector(".profile__edit-button");
+    const profileAddButton = document.querySelector(".profile__add-button");
 
     function addOpenPopupEvent(element){
         element.addEventListener("click",function(){
@@ -129,12 +101,12 @@
     });
 
   // Код для внесения в value формы данных из profile__person
-    let personNameElement = document.querySelector(".profile__name");
-    let personAboutElement = document.querySelector(".profile__about");
-    let personNameInput = document.querySelector("[name='guest-name']");
-    let personAboutInput = document.querySelector("[name='guest-about']");
-    let personEditPopup = document.querySelector("#profile__edit")
-    let saveButtonPerson = saveButtonElementsList[0];
+    const personNameElement = document.querySelector(".profile__name");
+    const personAboutElement = document.querySelector(".profile__about");
+    const personNameInput = document.querySelector("[name='guest-name']");
+    const personAboutInput = document.querySelector("[name='guest-about']");
+    const personEditPopup = document.querySelector("#profile__edit")
+    const saveButtonPerson = saveButtonElementsList[0];
 
     saveButtonPerson.addEventListener("click",function(){
         personNameElement.textContent = personNameInput.value;
@@ -142,7 +114,44 @@
         personEditPopup.classList.remove("popup_opened")
     })
 
-    // Код 
+    //Заполнение places-cards
+
+    const cardElementTemplate = document.querySelector("#card-template").content;
+    const cardsContainerElement = document.querySelector(".places-cards");
+
+    const initialCards = [
+{
+  name: 'Архыз',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+},
+{
+  name: 'Челябинская область',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+},
+{
+  name: 'Иваново',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+},
+{
+  name: 'Камчатка',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+},
+{
+  name: 'Холмогорский район',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+},
+{
+  name: 'Байкал',
+  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+}
+];
+
+for(let i = 0; i < initialCards.length; i++){
+    let newCardElement = cardElementTemplate.cloneNode(true);
+    newCardElement.querySelector(".card__image").src = initialCards[i].link;
+    newCardElement.querySelector(".card__caption").textContent = initialCards[i].name;
+    cardsContainerElement.append(newCardElement);
+}
 
 
     
