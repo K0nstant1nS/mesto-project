@@ -133,12 +133,16 @@
     let personAboutElement = document.querySelector(".profile__about");
     let personNameInput = document.querySelector("[name='guest-name']");
     let personAboutInput = document.querySelector("[name='guest-about']");
+    let personEditPopup = document.querySelector("#profile__edit")
     let saveButtonPerson = saveButtonElementsList[0];
 
     saveButtonPerson.addEventListener("click",function(){
         personNameElement.textContent = personNameInput.value;
         personAboutElement.textContent = personAboutInput.value;
+        personEditPopup.classList.remove("popup_opened")
     })
+
+    // Код 
 
 
     
