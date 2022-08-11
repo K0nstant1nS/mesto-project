@@ -94,6 +94,18 @@
 </div>
 
 <script>
+
+  //Отмена поведения по умолчанию для submit
+    let saveButtonElementsList = document.querySelectorAll(".popup__save");
+
+    function formSubmitHandler (evt) {
+        evt.preventDefault(); 
+    }
+
+    saveButtonElementsList.forEach(function(item){
+        return item.addEventListener("click", formSubmitHandler)
+    })
+
   // Код для закрытия/открытия форм
     let closeButtonsList = document.querySelectorAll(".popup__close");
     let profileEditButton = document.querySelector(".profile__edit-button");
@@ -114,12 +126,20 @@
        return item.addEventListener("click", function(){
         item.parentElement.parentElement.classList.remove("popup_opened")
        })
-    })
+    });
 
   // Код для внесения в value формы данных из profile__person
     let personNameElement = document.querySelector(".profile__name");
     let personAboutElement = document.querySelector(".profile__about");
-    let personFormSaveButton = document.querySelector("#profile__edit .popup__save");
+    let personNameInput = document.querySelector("[name='guest-name']");
+    let personAboutInput = document.querySelector("[name='guest-about']");
+    let saveButtonPerson = saveButtonElementsList[0];
+
+    saveButtonPerson.addEventListener("click",function(){
+        personNameElement.textContent = personNameInput.value;
+        personAboutElement.textContent = personAboutInput.value;
+    })
+
 
     
 </script>
