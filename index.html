@@ -66,7 +66,7 @@
             <p class="footer__author">© 2022. Соловьев Константин</p>
         </footer>
 </div>
-<div class="popup">
+<div id="profile__edit" class="popup">
     <div class="popup__profile-popup">
         <h3 class="popup__caption">Редактировать профиль</h3>
         <form name="guest-form" class="popup__profile-form">
@@ -79,30 +79,73 @@
         <button type="button" class="popup__close"></button>
     </div>
 </div>
-<!--Накидал на скорую руку, можете раскоментировать для работы popup и лайков-->
- <!-- <script>
-    let a = document.getElementsByClassName("profile__edit-button")[0]
-    let b = document.getElementsByClassName("popup__close")[0]
-    let c = document.getElementsByClassName("popup")[0]
-    let d = document.getElementsByClassName("card__like")
+<div id="profile__add" class="popup popup_opened">
+    <div class="popup__profile-popup">
+        <h3 class="popup__caption">Новое место</h3>
+        <form name="card-form" class="popup__profile-form">
+            <fieldset class="popup__person">
+                <input name="place-name" class="popup__text-input" type="text" placeholder="Название">
+                <input name="place-url" class="popup__text-input" placeholder="Ссылка на картинку" type="text">
+            </fieldset>
+            <button type="submit" class="popup__save">Создать</button>
+        </form>
+        <button type="button" class="popup__close"></button>
+    </div>
+</div>
 
-    function OpenClose(){
-        c.classList.toggle("popup_opened")
+<script>
+
+  //Отмена поведения по умолчанию для submit
+    let saveButtonElementsList = document.querySelectorAll(".popup__save");
+
+    function formSubmitHandler (evt) {
+        evt.preventDefault(); 
     }
 
-    for(let i = 0; i < d.length; i++){
+    saveButtonElementsList.forEach(function(item){
+        return item.addEventListener("click", formSubmitHandler)
+    })
 
-        function likeDislike(){
-        d[i].classList.toggle("card__like_active")
-        d[i].classList.toggle("card__like_disabled")
+  // Код для закрытия/открытия форм
+    let closeButtonsList = document.querySelectorAll(".popup__close");
+    let profileEditButton = document.querySelector(".profile__edit-button");
+    let profileAddButton = document.querySelector(".profile__add-button");
+
+    function addOpenPopupEvent(element){
+        element.addEventListener("click",function(){
+            let elemClassName = element.classList[0];
+            let popupId = elemClassName.split("-")[0];
+            document.querySelector("#" + popupId).classList.add("popup_opened")
+        })
     }
 
-    d[i].addEventListener("click",likeDislike)
-    }
+    addOpenPopupEvent(profileEditButton);
+    addOpenPopupEvent(profileAddButton);
+
+    closeButtonsList.forEach(function(item){
+       return item.addEventListener("click", function(){
+        item.parentElement.parentElement.classList.remove("popup_opened")
+       })
+    });
+
+  // Код для внесения в value формы данных из profile__person
+    let personNameElement = document.querySelector(".profile__name");
+    let personAboutElement = document.querySelector(".profile__about");
+    let personNameInput = document.querySelector("[name='guest-name']");
+    let personAboutInput = document.querySelector("[name='guest-about']");
+    let personEditPopup = document.querySelector("#profile__edit")
+    let saveButtonPerson = saveButtonElementsList[0];
+
+    saveButtonPerson.addEventListener("click",function(){
+        personNameElement.textContent = personNameInput.value;
+        personAboutElement.textContent = personAboutInput.value;
+        personEditPopup.classList.remove("popup_opened")
+    })
+
+    // Код 
 
 
-    a.addEventListener("click",OpenClose)
-    b.addEventListener("click",OpenClose)
-</script> -->
+    
+</script>
 </body>
 </html>
