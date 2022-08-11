@@ -57,7 +57,7 @@
         <form name="card-form" class="popup__profile-form">
             <fieldset class="popup__person">
                 <input name="place-name" class="popup__text-input" type="text" placeholder="Название">
-                <input name="place-url" class="popup__text-input" placeholder="Ссылка на картинку" type="text">
+                <input name="place-link" class="popup__text-input" placeholder="Ссылка на картинку" type="text">
             </fieldset>
             <button type="submit" class="popup__save">Создать</button>
         </form>
@@ -106,7 +106,7 @@
     const personNameInput = document.querySelector("[name='guest-name']");
     const personAboutInput = document.querySelector("[name='guest-about']");
     const personEditPopup = document.querySelector("#profile__edit")
-    const buttonSavePerson = saveButtonElementsList[0];
+    const buttonSavePerson = document.querySelector("#profile__edit .popup__save");
 
     buttonSavePerson.addEventListener("click",function(){
         personNameElement.textContent = personNameInput.value;
@@ -159,10 +159,11 @@
 
 
   //Добавление карточек через popup
-    const cardAddButtonElement = querySelector("#profile__add .popup__save");
+    const cardAddButtonElement = document.querySelector("#profile__add .popup__save");
 
-    
-
+    cardAddButtonElement.addEventListener("click",function(){
+        makeNewCard(document.querySelector("[name='place-name']").value ,document.querySelector("[name='place-link']").value)
+    })
 
 
     
