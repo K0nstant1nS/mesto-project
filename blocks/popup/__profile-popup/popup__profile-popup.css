@@ -1,4 +1,5 @@
 .popup__profile-popup{
+    position: relative;
     z-index: 2;
     background-color: #FFFFFF;
     color: #000000;

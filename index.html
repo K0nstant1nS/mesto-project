@@ -33,8 +33,10 @@
                 </div>
                 <button type="button" class="card__trash"></button>
                 <div class ="popup">
+                    <div>
                     <img src="" class="popup__image">
                     <button type="button" class="popup__close"></button>
+                    </div>
                 </div>
             </article>
         </template>
@@ -159,6 +161,7 @@
         const likeButtonElement = newCardElement.querySelector(".card__like");
         const trashButtonElement = newCardElement.querySelector(".card__trash");
         const popupImageElement = newCardElement.querySelector(".popup__image");
+        const popupCloseElement = newCardElement.querySelector('.popup__close');
         likeButtonElement.addEventListener("click",()=>{
             likeButtonElement.classList.toggle("card__like_disabled")
             likeButtonElement.classList.toggle("card__like_active")
@@ -167,8 +170,12 @@
         newCardElement.querySelector(".card__image").src = link; //initialCards[i].link;
         newCardElement.querySelector(".card__caption").textContent = name; //initialCards[i].name;
         popupImageElement.src = link;
+        popupImageElement.parentElement.style.position = "relative";
+        popupCloseElement.addEventListener("click",function(){
+            popupCloseElement.parentElement.parentElement.classList.remove("popup_opened");
+        })
         newCardElement.querySelector(".card__image").addEventListener("click",function(){
-            popupImageElement.parentElement.classList.add("popup_opened")
+            popupImageElement.parentElement.parentElement.classList.add("popup_opened")
         })
         cardsContainerElement.append(newCardElement);
         }
