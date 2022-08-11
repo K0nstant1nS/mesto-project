@@ -105,7 +105,7 @@
     const personAboutElement = document.querySelector(".profile__about");
     const personNameInput = document.querySelector("[name='guest-name']");
     const personAboutInput = document.querySelector("[name='guest-about']");
-    const personEditPopup = document.querySelector("#profile__edit")
+    const personEditPopup = document.querySelector("#profile__edit");
     const buttonSavePerson = document.querySelector("#profile__edit .popup__save");
 
     buttonSavePerson.addEventListener("click",function(){
@@ -159,10 +159,13 @@
 
 
   //Добавление карточек через popup
-    const cardAddButtonElement = document.querySelector("#profile__add .popup__save");
+    const personAddPopup = document.querySelector("#profile__add");
+    const cardAddButtonElement = personAddPopup.querySelector(".popup__save");
+
 
     cardAddButtonElement.addEventListener("click",function(){
         makeNewCard(document.querySelector("[name='place-name']").value ,document.querySelector("[name='place-link']").value)
+        personAddPopup.classList.remove("popup_opened")
     })
 
 
