@@ -1,4 +1,4 @@
-.places-cards{
+/*.places-cards{
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -19,6 +19,28 @@
     .places-cards{
         gap: 17px;
     }
+}
+
+@media screen and (max-width: 767.9px){
+
+    .places-cards{
+        gap: 20px;
+        padding-top: 36px;
+    }
+} */
+
+.places-cards{
+    width: 100%;
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 282px);
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    padding-top: 50px;
+    row-gap: 17px;
+    -webkit-column-gap: 10px;
+       -moz-column-gap: 10px;
+            column-gap: 10px;
 }
 
 @media screen and (max-width: 767.9px){
