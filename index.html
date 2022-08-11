@@ -27,11 +27,15 @@
         <section class="places-cards">
         <template id="card-template">
             <article class="card">
-                <img alt="Монастырь в горах" src="" class="card__image">
+                <img src="" class="card__image">
                 <div class="card__attributes-container">
                     <h2 class="card__caption"></h2><button type="button" class="card__like card__like_disabled"></button>
                 </div>
                 <button type="button" class="card__trash"></button>
+                <div class ="popup">
+                    <img src="" class="popup__image">
+                    <button type="button" class="popup__close"></button>
+                </div>
             </article>
         </template>
         </section>
@@ -120,6 +124,7 @@
     const cardElementTemplate = document.querySelector("#card-template").content;
     const cardsContainerElement = document.querySelector(".places-cards");
 
+
     const initialCards = [
 {
   name: 'Архыз',
@@ -153,13 +158,18 @@
         const newCardElement = cardElementTemplate.cloneNode(true);
         const likeButtonElement = newCardElement.querySelector(".card__like");
         const trashButtonElement = newCardElement.querySelector(".card__trash");
+        const popupImageElement = newCardElement.querySelector(".popup__image");
         likeButtonElement.addEventListener("click",()=>{
             likeButtonElement.classList.toggle("card__like_disabled")
             likeButtonElement.classList.toggle("card__like_active")
         })
         trashButtonElement.addEventListener("click",()=> trashButtonElement.parentElement.remove())
-        newCardElement.querySelector(".card__image").src = link //initialCards[i].link;
-        newCardElement.querySelector(".card__caption").textContent = name //initialCards[i].name;
+        newCardElement.querySelector(".card__image").src = link; //initialCards[i].link;
+        newCardElement.querySelector(".card__caption").textContent = name; //initialCards[i].name;
+        popupImageElement.src = link;
+        newCardElement.querySelector(".card__image").addEventListener("click",function(){
+            popupImageElement.parentElement.classList.add("popup_opened")
+        })
         cardsContainerElement.append(newCardElement);
         }
 
@@ -174,8 +184,12 @@
 
 
     cardAddButtonElement.addEventListener("click",function(){
-        makeNewCard(document.querySelector("[name='place-name']").value ,document.querySelector("[name='place-link']").value)
-        personAddPopup.classList.remove("popup_opened")
+        const inputPlaceNameElement = document.querySelector("[name='place-name']");
+        const inputPlaceLinkElement = document.querySelector("[name='place-link']");
+        makeNewCard(inputPlaceNameElement.value ,inputPlaceLinkElement.value)
+        personAddPopup.classList.remove("popup_opened");
+        inputPlaceNameElement.value = '';
+        inputPlaceLinkElement.value = '';
     })
 
 
