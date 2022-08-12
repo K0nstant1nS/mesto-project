@@ -24,6 +24,7 @@
       })
   }
 
+
   addOpenPopupEvent(profileEditButton);
   addOpenPopupEvent(profileAddButton);
 
@@ -67,6 +68,11 @@
   const personAboutInput = document.querySelector("[name='guest-about']");
   const personEditPopup = document.querySelector("#profile__edit");
   const buttonSavePerson = document.querySelector("#profile__edit .popup__save");
+
+  profileEditButton.addEventListener('click',function(){  //Получение значений при открытии popup
+    personNameInput.value = personNameElement.textContent;
+    personAboutInput.value = personAboutElement.textContent
+  })
 
   buttonSavePerson.addEventListener("click",function(){
       personNameElement.textContent = personNameInput.value;
@@ -136,7 +142,7 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
       newCardElement.querySelector(".card__image").addEventListener("click",function(){
         popupCardElement.classList.add("popup_opened");
       })
-      cardsContainerElement.append(newCardElement);
+      cardsContainerElement.prepend(newCardElement);
     };
     img.src = link;
   }
