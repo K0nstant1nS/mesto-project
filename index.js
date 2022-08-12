@@ -28,8 +28,12 @@
   addOpenPopupEvent(profileAddButton);
 
   function closePopup(elem){
-    let popupClass = elem.dataset.target;
-    elem.closest("." + popupClass).classList.remove("popup_opened");
+    const popupClass = elem.dataset.target;
+    const popupCloseReliteve = elem.closest("." + popupClass);
+    popupCloseReliteve.classList.remove("popup_opened");
+    popupCloseReliteve.querySelectorAll("input").forEach(function(item){
+     return item.value = "";
+    })
   }
 
 
