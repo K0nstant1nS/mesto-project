@@ -35,7 +35,7 @@
                 <div class ="popup">
                     <div>
                     <img src="" class="popup__image">
-                    <button type="button" class="popup__close"></button>
+                    <button type="button" class="popup__close" data-target="popup"></button>
                     </div>
                 </div>
             </article>
@@ -55,7 +55,7 @@
             </fieldset>
             <button type="submit" class="popup__save">Сохранить</button>
         </form>
-        <button type="button" class="popup__close"></button>
+        <button type="button" class="popup__close" data-target="popup"></button>
     </div>
 </div>
 <div id="profile__add" class="popup">
@@ -68,139 +68,10 @@
             </fieldset>
             <button type="submit" class="popup__save">Создать</button>
         </form>
-        <button type="button" class="popup__close"></button>
+        <button type="button" class="popup__close" data-target="popup"></button>
     </div>
 </div>
 
-<script>
-
-  //Отмена поведения по умолчанию для submit
-    const buttonSaveElementsList = document.querySelectorAll(".popup__save");
-
-    function formSubmitHandler (evt) {
-        evt.preventDefault(); 
-    }
-
-    buttonSaveElementsList.forEach(function(item){
-        return item.addEventListener("click", formSubmitHandler)
-    })
-
-  // Код для закрытия/открытия форм
-    const buttonsCloseList = document.querySelectorAll(".popup__close");
-    const profileEditButton = document.querySelector(".profile__edit-button");
-    const profileAddButton = document.querySelector(".profile__add-button");
-
-    function addOpenPopupEvent(element){
-        element.addEventListener("click",function(){
-            const elemClassName = element.classList[0];
-            const popupId = elemClassName.split("-")[0];
-            document.querySelector("#" + popupId).classList.add("popup_opened")
-        })
-    }
-
-    addOpenPopupEvent(profileEditButton);
-    addOpenPopupEvent(profileAddButton);
-
-    buttonsCloseList.forEach(function(item){
-       return item.addEventListener("click", function(){
-        item.parentElement.parentElement.classList.remove("popup_opened")
-       })
-    });
-
-  // Код для внесения в value формы данных из profile__person
-    const personNameElement = document.querySelector(".profile__name");
-    const personAboutElement = document.querySelector(".profile__about");
-    const personNameInput = document.querySelector("[name='guest-name']");
-    const personAboutInput = document.querySelector("[name='guest-about']");
-    const personEditPopup = document.querySelector("#profile__edit");
-    const buttonSavePerson = document.querySelector("#profile__edit .popup__save");
-
-    buttonSavePerson.addEventListener("click",function(){
-        personNameElement.textContent = personNameInput.value;
-        personAboutElement.textContent = personAboutInput.value;
-        personEditPopup.classList.remove("popup_opened")
-    })
-
-    //Заполнение places-cards
-
-    const cardElementTemplate = document.querySelector("#card-template").content;
-    const cardsContainerElement = document.querySelector(".places-cards");
-
-
-    const initialCards = [
-{
-  name: 'Архыз',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-},
-{
-  name: 'Челябинская область',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-},
-{
-  name: 'Иваново',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-},
-{
-  name: 'Камчатка',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-},
-{
-  name: 'Холмогорский район',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-},
-{
-  name: 'Байкал',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-}
-];
-
-
-
-    function makeNewCard(name,link){
-        const newCardElement = cardElementTemplate.cloneNode(true);
-        const likeButtonElement = newCardElement.querySelector(".card__like");
-        const trashButtonElement = newCardElement.querySelector(".card__trash");
-        const popupImageElement = newCardElement.querySelector(".popup__image");
-        const popupCloseElement = newCardElement.querySelector('.popup__close');
-        likeButtonElement.addEventListener("click",()=>{
-            likeButtonElement.classList.toggle("card__like_disabled")
-            likeButtonElement.classList.toggle("card__like_active")
-        })
-        trashButtonElement.addEventListener("click",()=> trashButtonElement.parentElement.remove())
-        newCardElement.querySelector(".card__image").src = link; //initialCards[i].link;
-        newCardElement.querySelector(".card__caption").textContent = name; //initialCards[i].name;
-        popupImageElement.src = link;
-        popupImageElement.parentElement.style.position = "relative";
-        popupCloseElement.addEventListener("click",function(){
-            popupCloseElement.parentElement.parentElement.classList.remove("popup_opened");
-        })
-        newCardElement.querySelector(".card__image").addEventListener("click",function(){
-            popupImageElement.parentElement.parentElement.classList.add("popup_opened")
-        })
-        cardsContainerElement.append(newCardElement);
-        }
-
-    for(let i = 0; i < initialCards.length; i++){
-        makeNewCard(initialCards[i].name,initialCards[i].link)
-    }
-
-
-  //Добавление карточек через popup
-    const personAddPopup = document.querySelector("#profile__add");
-    const cardAddButtonElement = personAddPopup.querySelector(".popup__save");
-
-
-    cardAddButtonElement.addEventListener("click",function(){
-        const inputPlaceNameElement = document.querySelector("[name='place-name']");
-        const inputPlaceLinkElement = document.querySelector("[name='place-link']");
-        makeNewCard(inputPlaceNameElement.value ,inputPlaceLinkElement.value)
-        personAddPopup.classList.remove("popup_opened");
-        inputPlaceNameElement.value = '';
-        inputPlaceLinkElement.value = '';
-    })
-
-
-    
-</script>
+<script src="./index.js"></script>
 </body>
 </html>
