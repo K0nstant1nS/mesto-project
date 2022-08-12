@@ -69,12 +69,12 @@
   const personEditPopup = document.querySelector("#profile__edit");
   const buttonSavePerson = document.querySelector("#profile__edit .popup__save");
 
-  profileEditButton.addEventListener('click',function(){  //Получение значений при открытии popup
+  profileEditButton.addEventListener("click",function(){  //Получение значений при открытии popup
     personNameInput.value = personNameElement.textContent;
     personAboutInput.value = personAboutElement.textContent
   })
 
-  buttonSavePerson.addEventListener("click",function(){
+  buttonSavePerson.addEventListener("click",function(){  //Перенос значений value в профиль
       personNameElement.textContent = personNameInput.value;
       personAboutElement.textContent = personAboutInput.value;
       personEditPopup.classList.remove("popup_opened")
@@ -122,9 +122,12 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
       const likeButtonElement = newCardElement.querySelector(".card__like");
       const trashButtonElement = newCardElement.querySelector(".card__trash");
       const popupImageElement = newCardElement.querySelector(".popup__image");
-      const popupCardElement = newCardElement.querySelector('.popup');
-      const popupCloseElement = newCardElement.querySelector('.popup__close');
-      const popupImageTitleElement = newCardElement.querySelector('.popup__image-title')
+      const popupCardElement = newCardElement.querySelector(".popup");
+      const popupCloseElement = newCardElement.querySelector(".popup__close");
+      const popupImageTitleElement = newCardElement.querySelector(".popup__image-title");
+      const cardImageElement = newCardElement.querySelector(".card__image");
+      cardImageElement.alt = "Фотография " + name;
+      popupImageElement.alt = "Фотография " + name;
       popupImageTitleElement.textContent = name;
       popupCardElement.style.backgroundColor = "rgba(0, 0, 0, .9)";
       likeButtonElement.addEventListener("click",()=>{
@@ -132,7 +135,7 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
           likeButtonElement.classList.toggle("card__like_active")
       })
       trashButtonElement.addEventListener("click",()=> trashButtonElement.parentElement.remove())
-      newCardElement.querySelector(".card__image").src = link; //initialCards[i].link;
+      cardImageElement.src = link; //initialCards[i].link;
       newCardElement.querySelector(".card__caption").textContent = name; //initialCards[i].name;
       popupImageElement.src = link;
       popupImageElement.parentElement.style.position = "relative";
@@ -161,6 +164,6 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
       const inputPlaceLinkElement = document.querySelector("[name='place-link']");
       makeNewCard(inputPlaceNameElement.value ,inputPlaceLinkElement.value)
       personAddPopup.classList.remove("popup_opened");
-      inputPlaceNameElement.value = '';
-      inputPlaceLinkElement.value = '';
+      inputPlaceNameElement.value = "";
+      inputPlaceLinkElement.value = "";
   })
