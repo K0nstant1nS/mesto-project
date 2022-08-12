@@ -106,6 +106,8 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
 
 
   function makeNewCard(name,link){
+    const img = new Image();
+    img.onload = function(){
       const newCardElement = cardElementTemplate.cloneNode(true);
       const likeButtonElement = newCardElement.querySelector(".card__like");
       const trashButtonElement = newCardElement.querySelector(".card__trash");
@@ -131,12 +133,13 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
         popupCardElement.classList.add("popup_opened");
       })
       cardsContainerElement.append(newCardElement);
-      }
+    };
+    img.src = link;
+  }
 
   for(let i = 0; i < initialCards.length; i++){
       makeNewCard(initialCards[i].name,initialCards[i].link)
   }
-
 
 //Добавление карточек через popup
   const personAddPopup = document.querySelector("#profile__add");
