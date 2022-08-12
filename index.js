@@ -31,9 +31,9 @@
   function closePopup(elem){
     let popupClass = elem.dataset.target;
     if(popupClass){
-        elem.closest("." + popupClass).classList.remove("popup_opened")
+        elem.closest("." + popupClass).classList.remove("popup_opened");
     } else {
-        elem.classList.remove("popup_opened")
+        elem.classList.remove("popup_opened");
     }
   }
 
@@ -122,6 +122,7 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
       const popupImageElement = newCardElement.querySelector(".popup__image");
       const popupCardElement = newCardElement.querySelector('.popup');
       const popupCloseElement = newCardElement.querySelector('.popup__close');
+      popupCardElement.style.backgroundColor = "rgba(0, 0, 0, .9)";
       likeButtonElement.addEventListener("click",()=>{
           likeButtonElement.classList.toggle("card__like_disabled")
           likeButtonElement.classList.toggle("card__like_active")
@@ -134,7 +135,7 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
       //popupCloseElement.addEventListener("click",checkPopupEvevntTarget);
       popupCardElement.addEventListener("click",checkPopupEvevntTarget)
       newCardElement.querySelector(".card__image").addEventListener("click",function(){
-          popupImageElement.parentElement.parentElement.classList.add("popup_opened")
+        popupCardElement.classList.add("popup_opened");
       })
       cardsContainerElement.append(newCardElement);
       }
