@@ -12,7 +12,6 @@
 
 // Код для закрытия/открытия форм
   const buttonsCloseList = document.querySelectorAll(".popup__close");
-  const popupElements = document.querySelectorAll(".popup");
   const profileEditButton = document.querySelector(".profile__edit-button");
   const profileAddButton = document.querySelector(".profile__add-button");
 
@@ -30,23 +29,14 @@
 
   function closePopup(elem){
     let popupClass = elem.dataset.target;
-    if(popupClass){
-        elem.closest("." + popupClass).classList.remove("popup_opened");
-    } else {
-        elem.classList.remove("popup_opened");
-    }
+    elem.closest("." + popupClass).classList.remove("popup_opened");
   }
 
-  function checkPopupEvevntTarget(evt){
-    if(evt.target.classList[0] === "popup"||evt.target.classList[0] === "popup__close"){
-        closePopup(evt.target);
-    } else {
-        return
-    }
-  }
 
-  popupElements.forEach(function(item){
-    return item.addEventListener("click",checkPopupEvevntTarget)
+  buttonsCloseList.forEach(function(item){
+    return item.addEventListener("click",()=>{
+        closePopup(item)
+    })
   })
 
  /* function closePopup(elem){
@@ -122,6 +112,8 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
       const popupImageElement = newCardElement.querySelector(".popup__image");
       const popupCardElement = newCardElement.querySelector('.popup');
       const popupCloseElement = newCardElement.querySelector('.popup__close');
+      const popupImageTitleElement = newCardElement.querySelector('.popup__image-title')
+      popupImageTitleElement.textContent = name;
       popupCardElement.style.backgroundColor = "rgba(0, 0, 0, .9)";
       likeButtonElement.addEventListener("click",()=>{
           likeButtonElement.classList.toggle("card__like_disabled")
@@ -132,8 +124,9 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
       newCardElement.querySelector(".card__caption").textContent = name; //initialCards[i].name;
       popupImageElement.src = link;
       popupImageElement.parentElement.style.position = "relative";
-      //popupCloseElement.addEventListener("click",checkPopupEvevntTarget);
-      popupCardElement.addEventListener("click",checkPopupEvevntTarget)
+      popupCloseElement.addEventListener("click",()=>{
+        closePopup(popupCloseElement)
+    });
       newCardElement.querySelector(".card__image").addEventListener("click",function(){
         popupCardElement.classList.add("popup_opened");
       })
