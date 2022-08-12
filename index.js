@@ -130,19 +130,19 @@ link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal
       popupImageElement.alt = "Фотография " + name;
       popupImageTitleElement.textContent = name;
       popupCardElement.style.backgroundColor = "rgba(0, 0, 0, .9)";
+      cardImageElement.src = link; //initialCards[i].link;
+      newCardElement.querySelector(".card__caption").textContent = name; //initialCards[i].name;
+      popupImageElement.src = link;
+      popupImageElement.parentElement.style.position = "relative";
       likeButtonElement.addEventListener("click",()=>{
           likeButtonElement.classList.toggle("card__like_disabled")
           likeButtonElement.classList.toggle("card__like_active")
       })
       trashButtonElement.addEventListener("click",()=> trashButtonElement.parentElement.remove())
-      cardImageElement.src = link; //initialCards[i].link;
-      newCardElement.querySelector(".card__caption").textContent = name; //initialCards[i].name;
-      popupImageElement.src = link;
-      popupImageElement.parentElement.style.position = "relative";
-      popupCloseElement.addEventListener("click",()=>{
+        popupCloseElement.addEventListener("click",()=>{
         closePopup(popupCloseElement)
     });
-      newCardElement.querySelector(".card__image").addEventListener("click",function(){
+      cardImageElement.addEventListener("click",function(){
         popupCardElement.classList.add("popup_opened");
       })
       cardsContainerElement.prepend(newCardElement);
