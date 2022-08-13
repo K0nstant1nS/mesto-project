@@ -25,13 +25,6 @@
             <button type="button" class="profile__add-button"></button>
         </section>
         <section class="places-cards">
-            <div id="image-popup" class ="popup popup_type_image">
-                <div class="popup__relative-child">
-                <img src="" class="popup__image">
-                <p class="popup__image-title"></p>
-                <button type="button" class="popup__close" data-target="popup"></button>
-                </div>
-            </div>
         <template id="card-template">
             <article class="card">
                 <img src="" class="card__image">
@@ -70,6 +63,13 @@
             <button type="submit" class="popup__save">Создать</button>
         </form>
         <button type="button" class="popup__close" data-target="popup"></button>
+    </div>
+</div>
+<div id="image-popup" class ="popup popup_type_image">
+    <div class="popup__relative-child">
+    <img src="" class="popup__image">
+    <p class="popup__image-title"></p>
+    <button type="button" class="popup__close" data-target="popup"></button>
     </div>
 </div>
 <script src="./initialCards.js"></script>
