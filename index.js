@@ -14,9 +14,18 @@
   const buttonSavePerson = document.querySelector("#profile__edit .popup__save");
   const cardElementTemplate = document.querySelector("#card-template").content;
   const cardsContainerElement = document.querySelector(".places-cards");
+  const imagePopupElement = document.querySelector("#image-popup");
 
   function formSubmitHandler (evt) {
       evt.preventDefault(); 
+  }
+
+  function openModalWindow(element){  //Открытие модального окна
+    element.classList.add("popup_opened");
+  }
+
+  function closeModalWindow(element){  //Закрытие модального окна
+    element.classList.remove("popup_opened");
   }
 
   function addOpenPopupEvent(element){  // Код для закрытия/открытия форм
@@ -24,17 +33,23 @@
         const elemClassName = element.classList[0];
         const popupId = elemClassName.split("-")[0];
         const popupElement = document.querySelector("#" + popupId);
-        popupElement.classList.add("popup_opened");
+        openModalWindow(popupElement);
     })
 }
 
 function closePopup(elem){
   const popupClass = elem.dataset.target;
   const popupCloseReliteve = elem.closest("." + popupClass);
-  popupCloseReliteve.classList.remove("popup_opened");
+  closeModalWindow(popupCloseReliteve);
   popupCloseReliteve.querySelectorAll("input").forEach(function(item){
    return item.value = "";
   })
+}
+
+function prepareImagePopup(cardElem,name,link){
+    imagePopupElement.querySelector(".popup__image-title").textContent = name;
+    imagePopupElement.querySelector(".popup__image").src = link;
+    openModalWindow(imagePopupElement);
 }
 
   buttonSaveElementsList.forEach(function(item){
@@ -47,29 +62,17 @@ function closePopup(elem){
       const newCardElement = cardElementTemplate.cloneNode(true);
       const likeButtonElement = newCardElement.querySelector(".card__like");
       const trashButtonElement = newCardElement.querySelector(".card__trash");
-      const popupImageElement = newCardElement.querySelector(".popup__image");
-      const popupCardElement = newCardElement.querySelector(".popup");
-      const popupCloseElement = newCardElement.querySelector(".popup__close");
-      const popupImageTitleElement = newCardElement.querySelector(".popup__image-title");
       const cardImageElement = newCardElement.querySelector(".card__image");
       cardImageElement.alt = "Фотография " + name;
-      popupImageElement.alt = "Фотография " + name;
-      popupImageTitleElement.textContent = name;
-      popupCardElement.style.backgroundColor = "rgba(0, 0, 0, .9)";
       cardImageElement.src = link; //initialCards[i].link;
-      newCardElement.querySelector(".card__caption").textContent = name; //initialCards[i].name;
-      popupImageElement.src = link;
-      popupImageElement.parentElement.style.position = "relative";
+      newCardElement.querySelector(".card__caption").textContent = name;
       likeButtonElement.addEventListener("click",()=>{
           likeButtonElement.classList.toggle("card__like_disabled")
           likeButtonElement.classList.toggle("card__like_active")
       })
       trashButtonElement.addEventListener("click",()=> trashButtonElement.parentElement.remove())
-        popupCloseElement.addEventListener("click",()=>{
-        closePopup(popupCloseElement)
-    });
       cardImageElement.addEventListener("click",function(){
-        popupCardElement.classList.add("popup_opened");
+        prepareImagePopup(newCardElement,name,link)
       })
       cardsContainerElement.prepend(newCardElement);
     };
@@ -98,7 +101,7 @@ function closePopup(elem){
   buttonSavePerson.addEventListener("click",function(){  //Перенос значений value в профиль
       personNameElement.textContent = personNameInput.value;
       personAboutElement.textContent = personAboutInput.value;
-      personEditPopup.classList.remove("popup_opened")
+      closeModalWindow(personEditPopup);
   })
 
   //Заполнение places-cards
@@ -114,7 +117,7 @@ function closePopup(elem){
       const inputPlaceNameElement = document.querySelector("[name='place-name']");
       const inputPlaceLinkElement = document.querySelector("[name='place-link']");
       makeNewCard(inputPlaceNameElement.value ,inputPlaceLinkElement.value)
-      personAddPopup.classList.remove("popup_opened");
+      closeModalWindow(personAddPopup);
       inputPlaceNameElement.value = "";
       inputPlaceLinkElement.value = "";
   })

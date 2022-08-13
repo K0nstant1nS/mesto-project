@@ -25,6 +25,13 @@
             <button type="button" class="profile__add-button"></button>
         </section>
         <section class="places-cards">
+            <div id="image-popup" class ="popup popup_type_image">
+                <div class="popup__relative-child">
+                <img src="" class="popup__image">
+                <p class="popup__image-title"></p>
+                <button type="button" class="popup__close" data-target="popup"></button>
+                </div>
+            </div>
         <template id="card-template">
             <article class="card">
                 <img src="" class="card__image">
@@ -32,13 +39,6 @@
                     <h2 class="card__caption"></h2><button type="button" class="card__like card__like_disabled"></button>
                 </div>
                 <button type="button" class="card__trash"></button>
-                <div class ="popup">
-                    <div>
-                    <img src="" class="popup__image">
-                    <p class="popup__image-title"></p>
-                    <button type="button" class="popup__close" data-target="popup"></button>
-                    </div>
-                </div>
             </article>
         </template>
         </section>
@@ -46,7 +46,7 @@
             <p class="footer__author">© 2022. Соловьев Константин</p>
         </footer>
 </div>
-<div id="profile__edit" class="popup">
+<div id="profile__edit" class="popup popup_type_form">
     <div class="popup__profile-popup">
         <h3 class="popup__caption">Редактировать профиль</h3>
         <form name="guest-form" class="popup__profile-form">
@@ -59,7 +59,7 @@
         <button type="button" class="popup__close" data-target="popup"></button>
     </div>
 </div>
-<div id="profile__add" class="popup">
+<div id="profile__add" class="popup popup_type_form">
     <div class="popup__profile-popup">
         <h3 class="popup__caption">Новое место</h3>
         <form name="card-form" class="popup__profile-form">
