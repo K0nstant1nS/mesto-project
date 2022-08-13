@@ -1,0 +1,5 @@
+.popup_type_animated{
+    -webkit-transition: visibility .3s, opacity .3s linear;
+    -o-transition: visibility .3s, opacity .3s linear;
+    transition: visibility .3s, opacity .3s linear;
+}

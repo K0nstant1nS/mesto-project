@@ -1,5 +1,6 @@
 
   //Отмена поведения по умолчанию для submit
+  const popupElementsList = document.querySelectorAll(".popup");
   const buttonSaveElementsList = document.querySelectorAll(".popup__save");
   const personAddPopup = document.querySelector("#profile__add");
   const personEditPopup = document.querySelector("#profile__edit");
@@ -76,6 +77,10 @@ function makeNewCard(name,link){  //Создание карточки
 
   return newCardElement
 }
+
+  popupElementsList.forEach(function(item){
+    item.classList.add("popup_type_animated")
+  })
 
 
   initialCards.forEach(function(item){ //Создаём карточки переданные в объекте
