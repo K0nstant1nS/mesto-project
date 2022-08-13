@@ -52,6 +52,7 @@ function checkAndAddCard(card,src){ //Проверка и добавление �
 function prepareImagePopup(cardElem,name,link){  // Внесение данных в моальное окно с изображением
     imagePopupElement.querySelector(".popup__image-title").textContent = name;
     imagePopupElement.querySelector(".popup__image").src = link;
+    imagePopupElement.querySelector(".popup__image").alt = "Фотография " + name;
     openModalWindow(imagePopupElement);
 }
 
