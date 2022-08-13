@@ -36,15 +36,9 @@
     })
 }
 
-function closePopup(elem){
+function findPopup(elem){  
   const popupClass = elem.dataset.target;
-  const popupCloseReliteve = elem.closest("." + popupClass);
-  closeModalWindow(popupCloseReliteve);
-  if(popupCloseReliteve.id === "profile__add"){
-  popupCloseReliteve.querySelectorAll("input").forEach(function(item){
-   return item.value = "";
-  })
-}
+  return elem.closest("." + popupClass);
 }
 
 function checkAndAddCard(card,src){ //Проверка и добавление карточки
@@ -94,18 +88,21 @@ function makeNewCard(name,link){  //Создание карточки
   addOpenPopupEvent(profileAddButton);
 
 
-
-
-  buttonsCloseList.forEach(function(item){
+  buttonsCloseList.forEach(function(item){  //Добавление обработчика для закрытия popup
     return item.addEventListener("click",()=>{
-        closePopup(item)
-    })
+      const currentPopupElement = findPopup(item);
+      closeModalWindow(currentPopupElement);
+      if(currentPopupElement.id === "profile__add"){
+        currentPopupElement.querySelectorAll("input").forEach(function(item){
+         return item.value = "";
+        })
+  }})
   })
 
 
 
 
-    formAddImage.addEventListener("submit", function(evt){  //Добавление карточки через popup
+  formAddImage.addEventListener("submit", function(evt){  //Добавление карточки через popup
     evt.preventDefault();
     const srcElemValue = personAddPopup.querySelector("[name='place-link']").value;
     const newCard = makeNewCard(personAddPopup.querySelector("[name='place-name']").value,srcElemValue);
