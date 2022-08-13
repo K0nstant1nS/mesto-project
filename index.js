@@ -19,14 +19,6 @@
   const formAddImage = document.querySelector("[name='card-form']");
   const formEditProfile = document.querySelector("[name='guest-form']");
 
-  function formSubmitHandler (evt) {
-      evt.preventDefault(); 
-  }
-
-  function resetForm (elem){
-    elem.reset()
-  }
-
   function openModalWindow(element){  //Открытие модального окна
     element.classList.add("popup_opened");
   }
@@ -48,9 +40,11 @@ function closePopup(elem){
   const popupClass = elem.dataset.target;
   const popupCloseReliteve = elem.closest("." + popupClass);
   closeModalWindow(popupCloseReliteve);
+  if(popupCloseReliteve.id === "profile__add"){
   popupCloseReliteve.querySelectorAll("input").forEach(function(item){
    return item.value = "";
   })
+}
 }
 
 function checkAndAddCard(card,src){ //Проверка и добавление карточки
@@ -91,6 +85,11 @@ function makeNewCard(name,link){  //Создание карточки
 }
 
 
+  initialCards.forEach(function(item){ //Создаём карточки переданные в объекте
+  let link = item.link;
+  checkAndAddCard(makeNewCard(item.name,link),link)
+  })
+
   addOpenPopupEvent(profileEditButton);
   addOpenPopupEvent(profileAddButton);
 
@@ -103,23 +102,20 @@ function makeNewCard(name,link){  //Создание карточки
     })
   })
 
-// Код для внесения в value формы данных из profile__person
 
 
 
-  
-
-    formAddImage.addEventListener("submit", function(evt){
-    formSubmitHandler(evt);
+    formAddImage.addEventListener("submit", function(evt){  //Добавление карточки через popup
+    evt.preventDefault();
     const srcElemValue = personAddPopup.querySelector("[name='place-link']").value;
     const newCard = makeNewCard(personAddPopup.querySelector("[name='place-name']").value,srcElemValue);
     checkAndAddCard(newCard,srcElemValue);
     closeModalWindow(personAddPopup);
-    resetForm(formAddImage);
+    formAddImage.reset();
   })
 
-  formEditProfile.addEventListener("submit", function(evt){
-    formSubmitHandler(evt);
+  formEditProfile.addEventListener("submit", function(evt){  // Изменение профиля
+    evt.preventDefault();
     personNameElement.textContent = personNameInput.value;
     personAboutElement.textContent = personAboutInput.value;
     closeModalWindow(personEditPopup);
@@ -130,12 +126,3 @@ function makeNewCard(name,link){  //Создание карточки
     personNameInput.value = personNameElement.textContent;
     personAboutInput.value = personAboutElement.textContent
   })
-
-  //Заполнение places-cards
-
-  initialCards.forEach(function(item){
-    let link = item.link;
-    checkAndAddCard(makeNewCard(item.name,link),link)
-  })
-
-//Добавление карточек через popup
