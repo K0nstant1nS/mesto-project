@@ -12,7 +12,6 @@
   const personAboutElement = document.querySelector(".profile__about");
   const personNameInput = document.querySelector("[name='guest-name']");
   const personAboutInput = document.querySelector("[name='guest-about']");
-  const buttonSavePerson = document.querySelector("#profile__edit .popup__save");
   const cardElementTemplate = document.querySelector("#card-template").content;
   const cardsContainerElement = document.querySelector(".places-cards");
   const imagePopupElement = document.querySelector("#image-popup");
