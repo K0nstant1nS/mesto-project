@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mesto">
@@ -8,71 +8,75 @@
     <meta name="keywords" content="Mesto">
     <link rel="stylesheet" href="./pages/index.css">
     <title>Место</title>
-</head>
-<body class="page">
+  </head>
+  <body class="page">
     <div class="page__content">
-        <header class="header">
-            <a href="#"><img class="header__logo" alt="Лого" src="./images/Mesto_logo.svg"></a>
-        </header>
-        <section class="profile">
-            <div class="profile__person">
-                <img alt="Жак-Ив Кусто" src="./images/kusto.jpg" class="profile__image">
-                <div class="profile__person-desription">
-                    <div class="profile__name-and-edit"><h1 class="profile__name">Жак-Ив Кусто</h1><button type="button" class="profile__edit-button"></button></div>
-                    <p class="profile__about">Исследователь океана</p>
-                </div>
+      <header class="header">
+        <a href="#"><img class="header__logo" alt="Лого" src="./images/Mesto_logo.svg"></a>
+      </header>
+      <section class="profile">
+        <div class="profile__person">
+          <img alt="Жак-Ив Кусто" src="./images/kusto.jpg" class="profile__image">
+          <div class="profile__person-desription">
+            <div class="profile__name-and-edit">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button type="button" class="profile__edit-button"></button>
             </div>
-            <button type="button" class="profile__add-button"></button>
-        </section>
-        <section class="places-cards">
+            <p class="profile__about">Исследователь океана</p>
+          </div>
+        </div>
+        <button type="button" class="profile__add-button"></button>
+      </section>
+      <section class="places-cards">
         <template id="card-template">
-            <article class="card">
-                <img src="" class="card__image">
-                <div class="card__attributes-container">
-                    <h2 class="card__caption"></h2><button type="button" class="card__like card__like_disabled"></button>
-                </div>
-                <button type="button" class="card__trash"></button>
-            </article>
+          <article class="card">
+            <img src="" class="card__image">
+            <div class="card__attributes-container">
+              <h2 class="card__caption"></h2>
+              <button type="button" class="card__like"></button>
+            </div>
+            <button type="button" class="card__trash"></button>
+          </article>
         </template>
-        </section>
-        <footer class="footer">
-            <p class="footer__author">© 2022. Соловьев Константин</p>
-        </footer>
-</div>
-<div id="profile__edit" class="popup popup_type_form">
-    <div class="popup__profile-popup">
+      </section>
+      <footer class="footer">
+        <p class="footer__author">© 2022. Соловьев Константин</p>
+      </footer>
+    </div>
+    <div id="profile__edit" class="popup popup_type_form">
+      <div class="popup__profile-popup">
         <h3 class="popup__caption">Редактировать профиль</h3>
         <form name="guest-form" class="popup__profile-form">
-            <fieldset class="popup__person">
-                <input name="guest-name" class="popup__text-input" type="text" value="Жак-Ив Кусто" placeholder="Имя">
-                <input name="guest-about" class="popup__text-input" value="Исследователь океана" type="text" placeholder="О себе">
-            </fieldset>
-            <button type="submit" class="popup__save">Сохранить</button>
+          <fieldset class="popup__person">
+            <input name="guest-name" class="popup__text-input" type="text" value="Жак-Ив Кусто" placeholder="Имя">
+            <input name="guest-about" class="popup__text-input" value="Исследователь океана" type="text" placeholder="О себе">
+          </fieldset>
+          <button type="submit" class="popup__save">Сохранить</button>
         </form>
         <button type="button" class="popup__close" data-target="popup"></button>
+      </div>
     </div>
-</div>
-<div id="profile__add" class="popup popup_type_form">
-    <div class="popup__profile-popup">
+    <div id="profile__add" class="popup popup_type_form">
+      <div class="popup__profile-popup">
         <h3 class="popup__caption">Новое место</h3>
         <form name="card-form" class="popup__profile-form">
-            <fieldset class="popup__person">
-                <input name="place-name" class="popup__text-input" type="text" placeholder="Название">
-                <input name="place-link" class="popup__text-input" placeholder="Ссылка на картинку" type="text">
-            </fieldset>
-            <button type="submit" class="popup__save">Создать</button>
+          <fieldset class="popup__person">
+            <input name="place-name" class="popup__text-input" type="text" placeholder="Название">
+            <input name="place-link" class="popup__text-input" placeholder="Ссылка на картинку" type="text">
+          </fieldset>
+          <button type="submit" class="popup__save">Создать</button>
         </form>
         <button type="button" class="popup__close" data-target="popup"></button>
+      </div>
     </div>
-</div>
-<div id="image-popup" class ="popup popup_type_image">
-    <div class="popup__relative-child">
-    <img src="" alt="" class="popup__image">
-    <p class="popup__image-title"></p>
-    <button type="button" class="popup__close" data-target="popup"></button>
+    <div id="image-popup" class ="popup popup_type_image">
+      <div class="popup__relative-child">
+        <img src="" alt="" class="popup__image">
+        <p class="popup__image-title"></p>
+        <button type="button" class="popup__close" data-target="popup"></button>
+      </div>
     </div>
-</div>
-<script src="./initialCards.js"></script>
-<script src="./index.js"></script>
-</body>
+    <script src="./initialCards.js"></script>
+    <script src="./index.js"></script>
+  </body>
 </html>
