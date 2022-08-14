@@ -5,6 +5,7 @@
     padding: 0;
     border: 0;
     background: 0;
+    background-image: url('../../../../images/heart.svg');
    background-repeat: no-repeat;
    background-size: cover;
    background-position: center;

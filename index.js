@@ -27,19 +27,14 @@
     element.classList.remove("popup_opened");
   }
 
-  function addOpenPopupEvent(element){  // Код для закрытия/открытия форм
+  /*function addOpenPopupEvent(element){  // Код для закрытия/открытия форм
     element.addEventListener("click",function(){
         const elemClassName = element.classList[0];
         const popupId = elemClassName.split("-")[0];
         const popupElement = document.querySelector("#" + popupId);
         openModalWindow(popupElement);
     })
-}
-
-function findPopup(elem){  
-  const popupClass = elem.dataset.target;
-  return elem.closest("." + popupClass);
-}
+} */
 
 function checkAndAddCard(card,src){ //Проверка и добавление карточки
   const img = new Image();
@@ -66,8 +61,7 @@ function makeNewCard(name,link){  //Создание карточки
   newCardElement.querySelector(".card__caption").textContent = name;
 
   likeButtonElement.addEventListener("click",()=>{
-      likeButtonElement.classList.toggle("card__like_disabled")
-      likeButtonElement.classList.toggle("card__like_active")
+      likeButtonElement.classList.toggle("card__like_active");
   })
 
   trashButtonElement.addEventListener("click",()=> trashButtonElement.parentElement.remove())
@@ -89,19 +83,19 @@ function makeNewCard(name,link){  //Создание карточки
   checkAndAddCard(makeNewCard(item.name,link),link)
   })
 
-  addOpenPopupEvent(profileEditButton);
-  addOpenPopupEvent(profileAddButton);
+  profileEditButton.addEventListener("click",function(){
+    openModalWindow(personEditPopup)
+  })
+  profileAddButton.addEventListener("click",function(){
+    openModalWindow(personAddPopup)
+  })
 
 
   buttonsCloseList.forEach(function(item){  //Добавление обработчика для закрытия popup
     return item.addEventListener("click",()=>{
-      const currentPopupElement = findPopup(item);
+      const currentPopupElement = document.querySelector(".popup_opened");
       closeModalWindow(currentPopupElement);
-      if(currentPopupElement.id === "profile__add"){
-        currentPopupElement.querySelectorAll("input").forEach(function(item){
-         return item.value = "";
-        })
-  }})
+    })
   })
 
 
