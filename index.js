@@ -65,6 +65,15 @@ function makeNewCard(name, link) {
   return newCardElement;
 }
 
+function isInputValid(elem) {
+  const regExp = /[^a-zа-яё\-\s]/gi;
+  if (regExp.test(elem.value)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 popupElementsList.forEach(function (item) {
   item.classList.add("popup_type_animated");
 });
