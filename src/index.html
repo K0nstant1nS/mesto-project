@@ -6,21 +6,23 @@
     <meta name="description" content="Mesto" />
     <meta name="author" content="Соловьев Константин" />
     <meta name="keywords" content="Mesto" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Место</title>
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header">
         <a href="#"
-          ><img class="header__logo" alt="Лого" src="./images/Mesto_logo.svg"
+          ><img
+            class="header__logo"
+            alt="Лого"
+            src="<%=require('./images/Mesto_logo.svg')%>"
         /></a>
       </header>
       <section class="profile">
         <div class="profile__person">
           <img
             alt="Жак-Ив Кусто"
-            src="./images/kusto.jpg"
+            src="<%=require('./images/kusto.jpg')%>"
             class="profile__image"
           />
           <div class="profile__person-desription">
@@ -50,7 +52,7 @@
       </footer>
     </div>
     <div id="profile__edit" class="popup popup_type_form">
-      <div class="popup__profile-popup">
+      <div class="popup__profile-popup" data-relative="true">
         <h3 class="popup__caption">Редактировать профиль</h3>
         <form name="guest-form" class="popup__profile-form">
           <fieldset class="popup__person">
@@ -62,7 +64,10 @@
               placeholder="Имя"
               minlength="2"
               maxlength="40"
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+              required
             />
+            <span id="guest-name-error" class="popup__form-error"></span>
             <input
               name="guest-about"
               class="popup__text-input"
@@ -71,15 +76,20 @@
               placeholder="О себе"
               minlength="2"
               maxlength="200"
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+              required
             />
+            <span id="guest-about-error" class="popup__form-error"></span>
           </fieldset>
-          <button type="submit" class="popup__save">Сохранить</button>
+          <button name="submit" type="submit" class="popup__save">
+            Сохранить
+          </button>
         </form>
         <button type="button" class="popup__close"></button>
       </div>
     </div>
     <div id="profile__add" class="popup popup_type_form">
-      <div class="popup__profile-popup">
+      <div class="popup__profile-popup" data-relative="true">
         <h3 class="popup__caption">Новое место</h3>
         <form name="card-form" class="popup__profile-form">
           <fieldset class="popup__person">
@@ -88,15 +98,24 @@
               class="popup__text-input"
               type="text"
               placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+              required
             />
+            <span id="place-name-error" class="popup__form-error"></span>
             <input
               name="place-link"
               class="popup__text-input"
               placeholder="Ссылка на картинку"
-              type="text"
+              type="url"
+              required
             />
+            <span id="place-link-error" class="popup__form-error"></span>
           </fieldset>
-          <button type="submit" class="popup__save">Создать</button>
+          <button name="submit" type="submit" class="popup__save">
+            Создать
+          </button>
         </form>
         <button type="button" class="popup__close"></button>
       </div>
@@ -108,7 +127,5 @@
         <button type="button" class="popup__close"></button>
       </div>
     </div>
-    <script src="./initialCards.js"></script>
-    <script src="./index.js"></script>
   </body>
 </html>

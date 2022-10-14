@@ -16,6 +16,11 @@
     outline: 0;
 }
 
+.popup__text-input:invalid{
+    border-color: #FF0000;
+    ;
+}
+
 @media screen and (max-width: 767.9px){
 
     .popup__text-input{
