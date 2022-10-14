@@ -1,6 +1,6 @@
 import "../pages/index.css";
 import { initialCards } from "./initialCards";
-import { initValidationForms } from "./validate";
+import { validateForm } from "./validate";
 import { makeNewCard } from "./card";
 import { openModalWindow, closeModalWindow, closePopup } from "./modal";
 import {
@@ -16,6 +16,8 @@ import {
   pictureNameInput,
   pictureLinkInput,
   cardFormElement,
+  guestFormObj,
+  cardFormObj,
 } from "./variables";
 
 function addCard(cardObj) {
@@ -37,11 +39,14 @@ function addCardInPopup(evt) {
   img.src = newCard.link;
   closeModalWindow(personAddPopup);
   cardFormElement.reset();
+  personAddPopup.dataset.firstopened = "1";
 }
 
 // --Инициализация валидации форм--
 
-initValidationForms();
+validateForm(guestFormObj);
+
+validateForm(cardFormObj);
 
 //
 
@@ -65,7 +70,6 @@ initialCards.forEach(function (cardObj) {
 
 document.addEventListener("mousedown", (evt) => {
   if (document.querySelector(".popup_opened")) {
-    const currentPopupElement = document.querySelector(".popup_opened");
     closePopup(evt);
   }
 });

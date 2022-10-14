@@ -8,16 +8,6 @@ function changeButtonState(elem, state) {
   }
 }
 
-function changeErrorState(input, stateObj) {
-  let errorElem = document.querySelector(`#${input.name}-error`);
-  if (!stateObj.state) {
-    errorElem.classList.add(errorElem.dataset.onerror);
-    errorElem.textContent = stateObj.message;
-  } else {
-    errorElem.classList.remove(errorElem.dataset.onerror);
-  }
-}
-
 function isInputValid(elem) {
   if (elem.type === "text") {
     if (elem.validity.patternMismatch) {
@@ -42,22 +32,32 @@ function isInputValid(elem) {
   }
 }
 
-function checkFormValid(form) {
-  const inputs = Array.from(form.querySelectorAll("input"));
+function changeErrorState(input) {
+  let errorElem = document.querySelector(`#${input.name}-error`);
+  const stateObj = isInputValid(input);
+  if (!stateObj.state) {
+    errorElem.classList.add(errorElem.dataset.onerror);
+    errorElem.textContent = stateObj.message;
+  } else {
+    errorElem.classList.remove(errorElem.dataset.onerror);
+  }
+}
+
+function checkFormValid(form, inputsSelector) {
+  const inputs = Array.from(form.querySelectorAll(inputsSelector));
   return inputs.every(function (input) {
     return isInputValid(input).state;
   });
 }
 
-function validateForm(form) {
-  const button = form.querySelector("button");
-  const inputs = Array.from(form.querySelectorAll("input"));
-  changeButtonState(button, checkFormValid(form));
+function validateForm(formObj) {
+  const form = document.forms[formObj.formName];
+  const button = form.querySelector(formObj.submitButtonSelector);
+  const inputs = Array.from(form.querySelectorAll(formObj.inputSelector));
   inputs.forEach(function (input) {
-    changeErrorState(input, isInputValid(input));
     input.addEventListener("input", function (evt) {
       let stateObj = isInputValid(input);
-      changeErrorState(input, stateObj);
+      changeErrorState(input);
 
       let status = inputs.every(function (input) {
         return isInputValid(input).state;
@@ -67,11 +67,4 @@ function validateForm(form) {
   });
 }
 
-function initValidationForms() {
-  const forms = Array.from(document.forms);
-  forms.forEach(function (form) {
-    validateForm(form);
-  });
-}
-
-export { initValidationForms, validateForm };
+export { validateForm, changeButtonState, changeErrorState, checkFormValid };

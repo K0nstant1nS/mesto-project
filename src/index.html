@@ -18,35 +18,37 @@
             src="<%=require('./images/Mesto_logo.svg')%>"
         /></a>
       </header>
-      <section class="profile">
-        <div class="profile__person">
-          <img
-            alt="Жак-Ив Кусто"
-            src="<%=require('./images/kusto.jpg')%>"
-            class="profile__image"
-          />
-          <div class="profile__person-desription">
-            <div class="profile__name-and-edit">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button type="button" class="profile__edit-button"></button>
+      <main class="main">
+        <section class="profile">
+          <div class="profile__person">
+            <img
+              alt="Жак-Ив Кусто"
+              src="<%=require('./images/kusto.jpg')%>"
+              class="profile__image"
+            />
+            <div class="profile__person-desription">
+              <div class="profile__name-and-edit">
+                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <button type="button" class="profile__edit-button"></button>
+              </div>
+              <p class="profile__about">Исследователь океана</p>
             </div>
-            <p class="profile__about">Исследователь океана</p>
           </div>
-        </div>
-        <button type="button" class="profile__add-button"></button>
-      </section>
-      <section class="places-cards">
-        <template id="card-template">
-          <article class="card">
-            <img src="" class="card__image" />
-            <div class="card__attributes-container">
-              <h2 class="card__caption"></h2>
-              <button type="button" class="card__like"></button>
-            </div>
-            <button type="button" class="card__trash"></button>
-          </article>
-        </template>
-      </section>
+          <button type="button" class="profile__add-button"></button>
+        </section>
+        <section class="places-cards">
+          <template id="card-template">
+            <article class="card">
+              <img src="" class="card__image" />
+              <div class="card__attributes-container">
+                <h2 class="card__caption"></h2>
+                <button type="button" class="card__like"></button>
+              </div>
+              <button type="button" class="card__trash"></button>
+            </article>
+          </template>
+        </section>
+      </main>
       <footer class="footer">
         <p class="footer__author">© 2022. Соловьев Константин</p>
       </footer>
