@@ -68,7 +68,11 @@
               required
               data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
             />
-            <span id="guest-name-error" class="popup__form-error"></span>
+            <span
+              id="guest-name-error"
+              class="popup__form-error"
+              data-onerror="popup__form-error_active"
+            ></span>
             <input
               name="guest-about"
               class="popup__text-input"
@@ -81,9 +85,18 @@
               required
               data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
             />
-            <span id="guest-about-error" class="popup__form-error"></span>
+            <span
+              id="guest-about-error"
+              class="popup__form-error"
+              data-onerror="popup__form-error_active"
+            ></span>
           </fieldset>
-          <button name="submit" type="submit" class="popup__save">
+          <button
+            name="submit"
+            type="submit"
+            class="popup__save"
+            data-disabled="popup__save_disabled"
+          >
             Сохранить
           </button>
         </form>
@@ -106,7 +119,11 @@
               required
               data-mismatch="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
             />
-            <span id="place-name-error" class="popup__form-error"></span>
+            <span
+              id="place-name-error"
+              class="popup__form-error"
+              data-onerror="popup__form-error_active"
+            ></span>
             <input
               name="place-link"
               class="popup__text-input"
@@ -114,9 +131,18 @@
               type="url"
               required
             />
-            <span id="place-link-error" class="popup__form-error"></span>
+            <span
+              id="place-link-error"
+              class="popup__form-error"
+              data-onerror="popup__form-error_active"
+            ></span>
           </fieldset>
-          <button name="submit" type="submit" class="popup__save">
+          <button
+            name="submit"
+            type="submit"
+            class="popup__save"
+            data-disabled="popup__save_disabled"
+          >
             Создать
           </button>
         </form>

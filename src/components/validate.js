@@ -1,32 +1,20 @@
 function changeButtonState(elem, state) {
   if (state) {
-    elem.classList.remove("popup__save_disabled");
+    elem.classList.remove(elem.dataset.disabled);
     elem.disabled = false;
   } else {
-    elem.classList.add("popup__save_disabled");
+    elem.classList.add(elem.dataset.disabled);
     elem.disabled = true;
   }
 }
 
-/*function calculateErrorPos(input) {
-  let errorElem = document.querySelector(`#${input.name}-error`);
-  let closestRelativeCords = input
-    .closest("[data-relative]")
-    .getBoundingClientRect();
-  let inputCords = input.getBoundingClientRect();
-  errorElem.style.top = `${
-    inputCords.top + inputCords.height + 5 - closestRelativeCords.top
-  }px`;
-  errorElem.style.left = `${inputCords.left - closestRelativeCords.left}px`;
-}*/
-
 function changeErrorState(input, stateObj) {
   let errorElem = document.querySelector(`#${input.name}-error`);
   if (!stateObj.state) {
-    errorElem.classList.add("popup__form-error_active");
+    errorElem.classList.add(errorElem.dataset.onerror);
     errorElem.textContent = stateObj.message;
   } else {
-    errorElem.classList.remove("popup__form-error_active");
+    errorElem.classList.remove(errorElem.dataset.onerror);
   }
 }
 
@@ -66,7 +54,6 @@ function validateForm(form) {
   const inputs = Array.from(form.querySelectorAll("input"));
   changeButtonState(button, checkFormValid(form));
   inputs.forEach(function (input) {
-    /*calculateErrorPos(input);*/
     changeErrorState(input, isInputValid(input));
     input.addEventListener("input", function (evt) {
       let stateObj = isInputValid(input);

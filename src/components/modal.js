@@ -15,19 +15,19 @@ function closeModalWindow(element) {
   document.removeEventListener("keydown", closeOnEsc);
 }
 
-function closePopup(popup, evt) {
+function closePopup(evt) {
+  const currentPopupElement = document.querySelector(".popup_opened");
   if (
-    evt.target === popup.querySelector(".popup__close") ||
-    evt.target === popup ||
+    evt.target === currentPopupElement.querySelector(".popup__close") ||
+    evt.target === currentPopupElement ||
     evt.key === "Escape"
   ) {
-    closeModalWindow(popup);
+    closeModalWindow(currentPopupElement);
   }
 }
 
 function closeOnEsc(evt) {
-  const currentPopupElement = document.querySelector(".popup_opened");
-  closePopup(currentPopupElement, evt);
+  closePopup(evt);
 }
 
 export { openModalWindow, closeModalWindow, closePopup, closeOnEsc };

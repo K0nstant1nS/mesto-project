@@ -1,16 +1,12 @@
-import { openModalWindow, closeModalWindow } from "./modal";
+import { openModalWindow } from "./modal";
 
-const cardElementTemplate = document.querySelector("#card-template").content;
+const cardElementTemplate = document
+  .querySelector("#card-template")
+  .content.querySelector(".card");
+const popupElement = document.querySelector("#image-popup");
 
-function addCard(cardObj, cardsContainerSelector) {
-  //Добавление карточки
-  const cardsContainerElement = document.querySelector(cardsContainerSelector);
-  cardsContainerElement.prepend(makeNewCard(cardObj));
-}
-
-function prepareImagePopup(cardObj, imagePopupSelector) {
+function prepareImagePopup(cardObj) {
   // Внесение данных в моальное окно с изображением
-  const popupElement = document.querySelector(imagePopupSelector);
   popupElement.querySelector(".popup__image-title").textContent = cardObj.name;
   popupElement.querySelector(".popup__image").src = cardObj.link;
   popupElement.querySelector(".popup__image").alt =
@@ -37,27 +33,10 @@ function makeNewCard(cardObj) {
   );
 
   cardImageElement.addEventListener("click", function () {
-    prepareImagePopup(cardObj, "#image-popup");
+    prepareImagePopup(cardObj);
   });
 
   return newCardElement;
 }
 
-function addCardInPopup(evt, popupElementSelector, formSelector) {
-  //Добавление карточки через popup
-  const popupElement = document.querySelector(popupElementSelector);
-  evt.preventDefault();
-  const newCard = {
-    name: popupElement.querySelector("[name='place-name']").value,
-    link: popupElement.querySelector("[name='place-link']").value,
-  };
-  const img = new Image();
-  img.onload = function () {
-    addCard(newCard, ".places-cards");
-  };
-  img.src = newCard.link;
-  closeModalWindow(popupElement);
-  popupElement.querySelector(formSelector).reset();
-}
-
-export { makeNewCard, addCard, addCardInPopup };
+export { makeNewCard };

@@ -1,17 +1,43 @@
 import "../pages/index.css";
 import { initialCards } from "./initialCards";
 import { initValidationForms } from "./validate";
-import { addCard, addCardInPopup } from "./card";
+import { makeNewCard } from "./card";
 import { openModalWindow, closeModalWindow, closePopup } from "./modal";
+import {
+  personAddPopup,
+  cardsContainerElement,
+  personEditPopup,
+  profileEditButton,
+  profileAddButton,
+  personNameElement,
+  personAboutElement,
+  personNameInput,
+  personAboutInput,
+  pictureNameInput,
+  pictureLinkInput,
+  cardFormElement,
+} from "./variables";
 
-const personAddPopup = document.querySelector("#profile__add");
-const personEditPopup = document.querySelector("#profile__edit");
-const profileEditButton = document.querySelector(".profile__edit-button");
-const profileAddButton = document.querySelector(".profile__add-button");
-const personNameElement = document.querySelector(".profile__name");
-const personAboutElement = document.querySelector(".profile__about");
-const personNameInput = document.querySelector("[name='guest-name']");
-const personAboutInput = document.querySelector("[name='guest-about']");
+function addCard(cardObj) {
+  //Добавление карточки
+  cardsContainerElement.prepend(makeNewCard(cardObj));
+}
+
+function addCardInPopup(evt) {
+  //Добавление карточки через popup
+  evt.preventDefault();
+  const newCard = {
+    name: pictureNameInput.value,
+    link: pictureLinkInput.value,
+  };
+  const img = new Image();
+  img.onload = function () {
+    addCard(newCard);
+  };
+  img.src = newCard.link;
+  closeModalWindow(personAddPopup);
+  cardFormElement.reset();
+}
 
 // --Инициализация валидации форм--
 
@@ -28,7 +54,7 @@ document.querySelectorAll(".popup").forEach(function (item) {
 initialCards.forEach(function (cardObj) {
   const img = new Image();
   img.onload = function () {
-    addCard(cardObj, ".places-cards");
+    addCard(cardObj);
   };
   img.src = cardObj.link;
 });
@@ -40,7 +66,7 @@ initialCards.forEach(function (cardObj) {
 document.addEventListener("mousedown", (evt) => {
   if (document.querySelector(".popup_opened")) {
     const currentPopupElement = document.querySelector(".popup_opened");
-    closePopup(currentPopupElement, evt);
+    closePopup(evt);
   }
 });
 
@@ -71,9 +97,4 @@ profileAddButton.addEventListener("click", function () {
 
 // --Поведение popup(а) с карточками при открытии--
 
-document
-  .querySelector("[name='card-form']")
-  .addEventListener("submit", function (evt) {
-    //Добавление карточки через popup
-    addCardInPopup(evt, "#profile__add", "[name='card-form']");
-  });
+cardFormElement.addEventListener("submit", addCardInPopup);
