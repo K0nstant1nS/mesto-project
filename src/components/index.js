@@ -39,7 +39,6 @@ function addCardInPopup(evt) {
   img.src = newCard.link;
   closeModalWindow(personAddPopup);
   cardFormElement.reset();
-  personAddPopup.dataset.firstopened = "1";
 }
 
 // --Инициализация валидации форм--
