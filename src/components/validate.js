@@ -22,7 +22,6 @@ function calculateErrorPos(input) {
 
 function changeErrorState(input, stateObj) {
   let errorElem = document.querySelector(`#${input.name}-error`);
-  calculateErrorPos(input);
   if (!stateObj.state) {
     errorElem.classList.add("popup__form-error_active");
     errorElem.textContent = stateObj.message;
@@ -36,8 +35,7 @@ function isInputValid(elem) {
     if (elem.validity.patternMismatch) {
       return {
         state: false,
-        message:
-          "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы",
+        message: elem.dataset.mismatch,
       };
     } else if (!elem.validity.valid) {
       return {
@@ -68,6 +66,7 @@ function validateForm(form) {
   const inputs = Array.from(form.querySelectorAll("input"));
   changeButtonState(button, checkFormValid(form));
   inputs.forEach(function (input) {
+    calculateErrorPos(input);
     changeErrorState(input, isInputValid(input));
     input.addEventListener("input", function (evt) {
       let stateObj = isInputValid(input);

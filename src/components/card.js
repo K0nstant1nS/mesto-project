@@ -4,17 +4,19 @@ const cardElementTemplate = document.querySelector("#card-template").content;
 const cardsContainerElement = document.querySelector(".places-cards");
 const imagePopupElement = document.querySelector("#image-popup");
 
-function addCard(card) {
+function addCard(cardObj) {
   //Добавление карточки
-  cardsContainerElement.prepend(card);
+  cardsContainerElement.prepend(makeNewCard(cardObj));
 }
 
-function prepareImagePopup(cardElem, name, link) {
+function prepareImagePopup(cardObj, popupElement) {
   // Внесение данных в моальное окно с изображением
-  imagePopupElement.querySelector(".popup__image-title").textContent = name;
-  imagePopupElement.querySelector(".popup__image").src = link;
-  imagePopupElement.querySelector(".popup__image").alt = "Фотография " + name;
-  openModalWindow(imagePopupElement);
+  imagePopupElement.querySelector(".popup__image-title").textContent =
+    cardObj.name;
+  imagePopupElement.querySelector(".popup__image").src = cardObj.link;
+  imagePopupElement.querySelector(".popup__image").alt =
+    "Фотография " + cardObj.name;
+  openModalWindow(popupElement);
 }
 
 function makeNewCard(cardObj) {
@@ -36,7 +38,7 @@ function makeNewCard(cardObj) {
   );
 
   cardImageElement.addEventListener("click", function () {
-    prepareImagePopup(newCardElement, cardObj.name, cardObj.link);
+    prepareImagePopup(cardObj, imagePopupElement);
   });
 
   return newCardElement;

@@ -1,12 +1,13 @@
-import "./pages/index.css";
-import { initialCards } from "./components/initialCards";
-import { initValidationForms } from "./components/validate";
-import { makeNewCard, addCard } from "./components/card";
+import "../pages/index.css";
+import { initialCards } from "./initialCards";
+import { initValidationForms } from "./validate";
+import { addCard } from "./card";
 import {
   openModalWindow,
   closeModalWindow,
   closePopup,
-} from "./components/modal";
+  closeOnEsc,
+} from "./modal";
 
 const popupElementsList = document.querySelectorAll(".popup");
 const personAddPopup = document.querySelector("#profile__add");
@@ -35,7 +36,7 @@ popupElementsList.forEach(function (item) {
 initialCards.forEach(function (cardObj) {
   const img = new Image();
   img.onload = function () {
-    addCard(makeNewCard(cardObj));
+    addCard(cardObj);
   };
   img.src = cardObj.link;
 });
@@ -44,13 +45,6 @@ initialCards.forEach(function (cardObj) {
 
 //Добавление обработчика для закрытия popup
 document.addEventListener("mousedown", (evt) => {
-  if (document.querySelector(".popup_opened")) {
-    const currentPopupElement = document.querySelector(".popup_opened");
-    closePopup(currentPopupElement, evt);
-  }
-});
-
-document.addEventListener("keydown", (evt) => {
   if (document.querySelector(".popup_opened")) {
     const currentPopupElement = document.querySelector(".popup_opened");
     closePopup(currentPopupElement, evt);
@@ -81,18 +75,15 @@ profileAddButton.addEventListener("click", function () {
 formAddImage.addEventListener("submit", function (evt) {
   //Добавление карточки через popup
   evt.preventDefault();
-  const srcElemValue = personAddPopup.querySelector(
-    "[name='place-link']"
-  ).value;
-  const newCard = makeNewCard({
+  const newCard = {
     name: personAddPopup.querySelector("[name='place-name']").value,
-    link: srcElemValue,
-  });
+    link: personAddPopup.querySelector("[name='place-link']").value,
+  };
   const img = new Image();
   img.onload = function () {
     addCard(newCard);
   };
-  img.src = srcElemValue;
+  img.src = newCard.link;
   closeModalWindow(personAddPopup);
   formAddImage.reset();
 });

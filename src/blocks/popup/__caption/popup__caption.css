@@ -1,6 +1,6 @@
 .popup__caption{
     margin: 0;
-    padding: 34px 64px 0 36px;
+    padding: 0 64px;
     font-weight: 900;
     font-size: 24px;
     line-height: 29px;
@@ -14,7 +14,7 @@
             align-self: center;
         font-size: 18px;
         line-height: 22px;
-        padding: 25px 0 0;
+        padding: 0;
     }
 
 }

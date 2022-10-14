@@ -6,11 +6,13 @@ function openModalWindow(element, validateBool) {
   if (validateBool === true) {
     validateForm(element.querySelector("form"));
   }
+  document.addEventListener("keydown", closeOnEsc);
 }
 
 function closeModalWindow(element) {
   //Закрытие модального окна
   element.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeOnEsc);
 }
 
 function closePopup(popup, evt) {
@@ -19,8 +21,13 @@ function closePopup(popup, evt) {
     evt.target === popup ||
     evt.key === "Escape"
   ) {
-    popup.classList.remove("popup_opened");
+    closeModalWindow(popup);
   }
 }
 
-export { openModalWindow, closeModalWindow, closePopup };
+function closeOnEsc(evt) {
+  const currentPopupElement = document.querySelector(".popup_opened");
+  closePopup(currentPopupElement, evt);
+}
+
+export { openModalWindow, closeModalWindow, closePopup, closeOnEsc };
