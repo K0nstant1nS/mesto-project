@@ -8,7 +8,7 @@ function changeButtonState(elem, state) {
   }
 }
 
-function calculateErrorPos(input) {
+/*function calculateErrorPos(input) {
   let errorElem = document.querySelector(`#${input.name}-error`);
   let closestRelativeCords = input
     .closest("[data-relative]")
@@ -18,7 +18,7 @@ function calculateErrorPos(input) {
     inputCords.top + inputCords.height + 5 - closestRelativeCords.top
   }px`;
   errorElem.style.left = `${inputCords.left - closestRelativeCords.left}px`;
-}
+}*/
 
 function changeErrorState(input, stateObj) {
   let errorElem = document.querySelector(`#${input.name}-error`);
@@ -66,7 +66,7 @@ function validateForm(form) {
   const inputs = Array.from(form.querySelectorAll("input"));
   changeButtonState(button, checkFormValid(form));
   inputs.forEach(function (input) {
-    calculateErrorPos(input);
+    /*calculateErrorPos(input);*/
     changeErrorState(input, isInputValid(input));
     input.addEventListener("input", function (evt) {
       let stateObj = isInputValid(input);

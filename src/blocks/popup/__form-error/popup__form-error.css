@@ -1,8 +1,20 @@
 .popup__form-error{
-    display: none;
+    visibility: hidden;
     font-weight: 400;
     font-size: 12px;
     line-height: 15px;
+    min-height: 30px;
+    max-width: 100%;
+    align-self: flex-start;
+    padding: 5px 0 0 0;
+    max-width: 362px;
 
     color: #FF0000;
+}
+
+@media screen and (max-width: 767.9px){
+
+    .popup__form-error{
+        max-width: 242px;
+    }
 }

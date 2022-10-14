@@ -1,20 +1,19 @@
-import { openModalWindow } from "./modal";
+import { openModalWindow, closeModalWindow } from "./modal";
 
 const cardElementTemplate = document.querySelector("#card-template").content;
-const cardsContainerElement = document.querySelector(".places-cards");
-const imagePopupElement = document.querySelector("#image-popup");
 
-function addCard(cardObj) {
+function addCard(cardObj, cardsContainerSelector) {
   //Добавление карточки
+  const cardsContainerElement = document.querySelector(cardsContainerSelector);
   cardsContainerElement.prepend(makeNewCard(cardObj));
 }
 
-function prepareImagePopup(cardObj, popupElement) {
+function prepareImagePopup(cardObj, imagePopupSelector) {
   // Внесение данных в моальное окно с изображением
-  imagePopupElement.querySelector(".popup__image-title").textContent =
-    cardObj.name;
-  imagePopupElement.querySelector(".popup__image").src = cardObj.link;
-  imagePopupElement.querySelector(".popup__image").alt =
+  const popupElement = document.querySelector(imagePopupSelector);
+  popupElement.querySelector(".popup__image-title").textContent = cardObj.name;
+  popupElement.querySelector(".popup__image").src = cardObj.link;
+  popupElement.querySelector(".popup__image").alt =
     "Фотография " + cardObj.name;
   openModalWindow(popupElement);
 }
@@ -38,10 +37,27 @@ function makeNewCard(cardObj) {
   );
 
   cardImageElement.addEventListener("click", function () {
-    prepareImagePopup(cardObj, imagePopupElement);
+    prepareImagePopup(cardObj, "#image-popup");
   });
 
   return newCardElement;
 }
 
-export { makeNewCard, addCard };
+function addCardInPopup(evt, popupElementSelector, formSelector) {
+  //Добавление карточки через popup
+  const popupElement = document.querySelector(popupElementSelector);
+  evt.preventDefault();
+  const newCard = {
+    name: popupElement.querySelector("[name='place-name']").value,
+    link: popupElement.querySelector("[name='place-link']").value,
+  };
+  const img = new Image();
+  img.onload = function () {
+    addCard(newCard, ".places-cards");
+  };
+  img.src = newCard.link;
+  closeModalWindow(popupElement);
+  popupElement.querySelector(formSelector).reset();
+}
+
+export { makeNewCard, addCard, addCardInPopup };
