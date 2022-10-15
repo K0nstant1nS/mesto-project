@@ -1,16 +1,16 @@
 import { openModalWindow } from "./modal";
-
-const cardElementTemplate = document
-  .querySelector("#card-template")
-  .content.querySelector(".card");
-const popupElement = document.querySelector("#image-popup");
+import {
+  popupElement,
+  cardElementTemplate,
+  popupImageTitle,
+  popupImage,
+} from "./variables";
 
 function prepareImagePopup(cardObj) {
   // Внесение данных в моальное окно с изображением
-  popupElement.querySelector(".popup__image-title").textContent = cardObj.name;
-  popupElement.querySelector(".popup__image").src = cardObj.link;
-  popupElement.querySelector(".popup__image").alt =
-    "Фотография " + cardObj.name;
+  popupImageTitle.textContent = cardObj.name;
+  popupImage.src = cardObj.link;
+  popupImage.alt = "Фотография " + cardObj.name;
   openModalWindow(popupElement);
 }
 

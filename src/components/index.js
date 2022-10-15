@@ -1,6 +1,6 @@
 import "../pages/index.css";
 import { initialCards } from "./initialCards";
-import { validateForm } from "./validate";
+import { validateForm, prepareOnOpen } from "./validate";
 import { makeNewCard } from "./card";
 import { openModalWindow, closeModalWindow, closePopup } from "./modal";
 import {
@@ -89,11 +89,13 @@ profileEditButton.addEventListener("click", function () {
 });
 
 profileEditButton.addEventListener("click", function () {
-  openModalWindow(personEditPopup, true);
+  openModalWindow(personEditPopup);
+  prepareOnOpen(guestFormObj);
 });
 
 profileAddButton.addEventListener("click", function () {
-  openModalWindow(personAddPopup, true);
+  openModalWindow(personAddPopup);
+  prepareOnOpen(cardFormObj);
 });
 
 //

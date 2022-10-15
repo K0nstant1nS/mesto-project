@@ -50,13 +50,27 @@ function checkFormValid(form, inputsSelector) {
   });
 }
 
+function prepareOnOpen(formObj) {
+  const form = document.forms[formObj.formName];
+  const button = form.querySelector(formObj.submitButtonSelector);
+  const inputs = Array.from(form.querySelectorAll(formObj.inputSelector));
+  const bool = Array.from(inputs).every(function (input) {
+    return input.value === "";
+  });
+  if (!bool) {
+    inputs.forEach(function (input) {
+      changeErrorState(input);
+    });
+  }
+  changeButtonState(button, checkFormValid(form, formObj.inputSelector));
+}
+
 function validateForm(formObj) {
   const form = document.forms[formObj.formName];
   const button = form.querySelector(formObj.submitButtonSelector);
   const inputs = Array.from(form.querySelectorAll(formObj.inputSelector));
   inputs.forEach(function (input) {
     input.addEventListener("input", function (evt) {
-      let stateObj = isInputValid(input);
       changeErrorState(input);
 
       let status = inputs.every(function (input) {
@@ -67,4 +81,10 @@ function validateForm(formObj) {
   });
 }
 
-export { validateForm, changeButtonState, changeErrorState, checkFormValid };
+export {
+  validateForm,
+  changeButtonState,
+  changeErrorState,
+  checkFormValid,
+  prepareOnOpen,
+};

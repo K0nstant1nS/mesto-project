@@ -10,6 +10,12 @@ const personAboutInput = document.querySelector("[name='guest-about']");
 const pictureNameInput = document.querySelector("[name='place-name']");
 const pictureLinkInput = document.querySelector("[name='place-link']");
 const cardFormElement = document.querySelector("[name='card-form']");
+const cardElementTemplate = document
+  .querySelector("#card-template")
+  .content.querySelector(".card");
+const popupElement = document.querySelector("#image-popup");
+const popupImageTitle = popupElement.querySelector(".popup__image-title");
+const popupImage = popupElement.querySelector(".popup__image");
 const guestFormObj = {
   formName: "guest-form",
   submitButtonSelector: ".popup__save",
@@ -34,6 +40,10 @@ export {
   pictureNameInput,
   pictureLinkInput,
   cardFormElement,
+  popupElement,
+  cardElementTemplate,
   guestFormObj,
   cardFormObj,
+  popupImageTitle,
+  popupImage,
 };
