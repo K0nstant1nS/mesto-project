@@ -9,26 +9,18 @@ function changeButtonState(elem, state) {
 }
 
 function isInputValid(elem) {
-  if (elem.type === "text") {
-    if (elem.validity.patternMismatch) {
-      return {
-        state: false,
-        message: elem.dataset.mismatch,
-      };
-    } else if (!elem.validity.valid) {
-      return {
-        state: false,
-        message: elem.validationMessage,
-      };
-    } else {
-      return { state: true };
-    }
-  } else if (elem.type === "url") {
-    if (!elem.validity.valid) {
-      return { state: false, message: elem.validationMessage };
-    } else {
-      return { state: true };
-    }
+  if (elem.validity.patternMismatch) {
+    return {
+      state: false,
+      message: elem.dataset.mismatch,
+    };
+  } else if (!elem.validity.valid) {
+    return {
+      state: false,
+      message: elem.validationMessage,
+    };
+  } else {
+    return { state: true };
   }
 }
 
