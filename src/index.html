@@ -21,11 +21,13 @@
       <main class="main">
         <section class="profile">
           <div class="profile__person">
-            <img
-              alt="Жак-Ив Кусто"
-              src="<%=require('./images/kusto.jpg')%>"
-              class="profile__image"
-            />
+            <button type="button" class="profile__image-container">
+              <img
+                class="profile__image"
+                alt="Жак-Ив Кусто"
+                src="<%=require('./images/kusto.jpg')%>"
+              />
+            </button>
             <div class="profile__person-desription">
               <div class="profile__name-and-edit">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -146,6 +148,36 @@
             data-disabled="popup__save_disabled"
           >
             Создать
+          </button>
+        </form>
+        <button type="button" class="popup__close"></button>
+      </div>
+    </div>
+    <div id="profile__avatar" class="popup popup_type_form">
+      <div class="popup__profile-popup" data-relative="true">
+        <h3 class="popup__caption">Обновить аватар</h3>
+        <form name="avatar-form" class="popup__profile-form">
+          <fieldset class="popup__person">
+            <input
+              name="avatar-link"
+              class="popup__text-input"
+              placeholder="Ссылка на картинку"
+              type="url"
+              required
+            />
+            <span
+              id="avatar-link-error"
+              class="popup__form-error"
+              data-onerror="popup__form-error_active"
+            ></span>
+          </fieldset>
+          <button
+            name="submit"
+            type="submit"
+            class="popup__save"
+            data-disabled="popup__save_disabled"
+          >
+            Сохранить
           </button>
         </form>
         <button type="button" class="popup__close"></button>

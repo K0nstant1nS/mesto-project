@@ -12,7 +12,6 @@
             flex-direction: column;
             justify-content: center;
     width: 430px;
-    min-height: 330px;
     -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
             box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
@@ -22,6 +21,5 @@
 
     .popup__profile-popup{
         width: 282px;
-        min-height: 322px;
     }
 }

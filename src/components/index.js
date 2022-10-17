@@ -5,10 +5,14 @@ import { makeNewCard } from "./card";
 import { openModalWindow, closeModalWindow, closePopup } from "./modal";
 import {
   personAddPopup,
+  avatarChangePopup,
   cardsContainerElement,
   personEditPopup,
   profileEditButton,
   profileAddButton,
+  profileAvatarImage,
+  avatarChangeButton,
+  avatarImageInput,
   personNameElement,
   personAboutElement,
   personNameInput,
@@ -16,8 +20,10 @@ import {
   pictureNameInput,
   pictureLinkInput,
   cardFormElement,
+  avatarFormElement,
   guestFormObj,
   cardFormObj,
+  avatarFormObj,
 } from "./variables";
 
 function addCard(cardObj) {
@@ -41,11 +47,20 @@ function addCardInPopup(evt) {
   cardFormElement.reset();
 }
 
+function changeAvatar(evt) {
+  evt.preventDefault();
+  profileAvatarImage.src = avatarImageInput.value;
+  closeModalWindow(avatarChangePopup);
+  avatarFormElement.reset();
+}
+
 // --Инициализация валидации форм--
 
 validateForm(guestFormObj);
 
 validateForm(cardFormObj);
+
+validateForm(avatarFormObj);
 
 //
 
@@ -98,8 +113,15 @@ profileAddButton.addEventListener("click", function () {
   prepareOnOpen(cardFormObj);
 });
 
+avatarChangeButton.addEventListener("click", function (evt) {
+  openModalWindow(avatarChangePopup);
+  prepareOnOpen(avatarFormObj);
+});
+
 //
 
 // --Поведение popup(а) с карточками при открытии--
 
 cardFormElement.addEventListener("submit", addCardInPopup);
+
+avatarFormElement.addEventListener("submit", changeAvatar);

@@ -1,0 +1,32 @@
+.profile__image-container{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: 0;
+    position: relative;
+}
+
+.profile__image-container::before{
+    opacity: 0;
+    position: absolute;
+    content: "";
+    background-color: rgba(0, 0, 0, 0.8);
+    background-image: url("../../../images/pencel.svg");
+    background-repeat: no-repeat;
+    background-size: 28px 28px;
+    background-position: center;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: opacity .3s;
+}
+
+.profile__image-container:hover{
+    cursor: pointer;
+}
+
+.profile__image-container:hover::before{
+    opacity: 1;
+}
