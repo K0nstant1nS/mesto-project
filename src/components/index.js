@@ -1,5 +1,4 @@
 import "../pages/index.css";
-import { initialCards } from "./initialCards";
 import { validateForm, prepareOnOpen } from "./validate";
 import { makeNewCard } from "./card";
 import { openModalWindow, closeModalWindow, closePopup } from "./modal";
@@ -28,7 +27,13 @@ import {
   avatarFormObj,
 } from "./variables";
 import { changeProfileAvatar, changeProfileInfo } from "./utils";
-import { postCard, patchAvatar, patchProfile, getProfileInfo } from "./api";
+import {
+  postCard,
+  patchAvatar,
+  patchProfile,
+  getProfileInfo,
+  initialCards,
+} from "./api";
 
 function addCard(cardObj) {
   //Добавление карточки
@@ -39,23 +44,16 @@ function addCardInPopup(evt) {
   //Добавление карточки через popup
   personAddSubmit.textContent = personAddSubmit.dataset.onload;
   evt.preventDefault();
-  postCard(pictureNameInput, pictureLinkInput)
-    .then((data) => {
-      return data.json();
-    })
-    .then((obj) => {
-      const img = new Image();
-      img.onload = function () {
-        addCard(obj);
-      };
-      img.src = obj.link;
-      closeModalWindow(personAddPopup);
-      personAddSubmit.textContent = personAddSubmit.dataset.default;
-      cardFormElement.reset();
-    })
-    .catch((err) => {
-      throw new Error(err);
-    });
+  postCard(pictureNameInput, pictureLinkInput).then((obj) => {
+    const img = new Image();
+    img.onload = function () {
+      addCard(obj);
+    };
+    img.src = obj.link;
+    closeModalWindow(personAddPopup);
+    personAddSubmit.textContent = personAddSubmit.dataset.default;
+    cardFormElement.reset();
+  });
 }
 
 function changeAvatarOnSubmit(evt) {
@@ -73,7 +71,7 @@ function changeProfileOnSubmit(evt) {
   evt.preventDefault();
   // --Изменение профиля --
   personEditSubmit.textContent = personEditSubmit.dataset.onload;
-  patchProfile(personNameInput, personAboutInput).then((data) => {
+  patchProfile(personNameInput, personAboutInput).then(() => {
     changeProfileInfo({
       name: personNameInput.value,
       about: personAboutInput.value,
@@ -100,19 +98,15 @@ document.querySelectorAll(".popup").forEach(function (item) {
 
 // --Инициализация карточек--
 
-initialCards
-  .then((res) => {
-    res.forEach(function (cardObj) {
-      const img = new Image();
-      img.onload = function () {
-        addCard(cardObj);
-      };
-      img.src = cardObj.link;
-    });
-  })
-  .catch((err) => {
-    throw new Error(err);
+initialCards().then((res) => {
+  res.forEach(function (cardObj) {
+    const img = new Image();
+    img.onload = function () {
+      addCard(cardObj);
+    };
+    img.src = cardObj.link;
   });
+});
 
 //
 
@@ -159,11 +153,7 @@ avatarFormElement.addEventListener("submit", changeAvatarOnSubmit);
 
 // --Подгрузка ползователя--
 
-getProfileInfo()
-  .then((data) => {
-    return data.json();
-  })
-  .then((personObj) => {
-    changeProfileInfo(personObj);
-    changeProfileAvatar(personObj.avatar);
-  });
+getProfileInfo().then((personObj) => {
+  changeProfileInfo(personObj);
+  changeProfileAvatar(personObj.avatar);
+});

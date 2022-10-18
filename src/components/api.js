@@ -6,13 +6,25 @@ const config = {
   },
 };
 
+function dataParse(data) {
+  if (data.ok) {
+    return data.json();
+  } else {
+    return Promise.reject(`Ошибка. Статус - ${data.status}`);
+  }
+}
+
 const getLikeDelete = function (cardObj) {
   return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
     method: "DELETE",
     headers: {
       authorization: config.headers.authorization,
     },
-  });
+  })
+    .then(dataParse)
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const getLikeAdded = function (cardObj) {
@@ -21,7 +33,11 @@ const getLikeAdded = function (cardObj) {
     headers: {
       authorization: config.headers.authorization,
     },
-  });
+  })
+    .then(dataParse)
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const getProfileInfo = function () {
@@ -30,7 +46,11 @@ const getProfileInfo = function () {
     headers: {
       authorization: config.headers.authorization,
     },
-  });
+  })
+    .then(dataParse)
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const getCardRemoved = function (cardObj) {
@@ -42,13 +62,17 @@ const getCardRemoved = function (cardObj) {
   });
 };
 
-const getCardsInit = function () {
+const initialCards = function () {
   return fetch(`${config.baseUrl}/cards`, {
     method: "GET",
     headers: {
       authorization: config.headers.authorization,
     },
-  });
+  })
+    .then(dataParse)
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const postCard = function (pictureNameInput, pictureLinkInput) {
@@ -59,7 +83,11 @@ const postCard = function (pictureNameInput, pictureLinkInput) {
       name: pictureNameInput.value,
       link: pictureLinkInput.value,
     }),
-  });
+  })
+    .then(dataParse)
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const patchAvatar = function (avatarImageInput) {
@@ -87,7 +115,7 @@ export {
   getLikeDelete,
   getLikeAdded,
   getProfileInfo,
-  getCardsInit,
+  initialCards,
   getCardRemoved,
   patchAvatar,
   patchProfile,
