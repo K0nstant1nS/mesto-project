@@ -22,18 +22,14 @@
         <section class="profile">
           <div class="profile__person">
             <button type="button" class="profile__image-container">
-              <img
-                class="profile__image"
-                alt="Жак-Ив Кусто"
-                src="<%=require('./images/kusto.jpg')%>"
-              />
+              <img class="profile__image" alt="Аватар пользователя" />
             </button>
             <div class="profile__person-desription">
               <div class="profile__name-and-edit">
-                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <h1 class="profile__name"></h1>
                 <button type="button" class="profile__edit-button"></button>
               </div>
-              <p class="profile__about">Исследователь океана</p>
+              <p class="profile__about"></p>
             </div>
           </div>
           <button type="button" class="profile__add-button"></button>
@@ -46,7 +42,7 @@
                 <h2 class="card__caption"></h2>
                 <div class="card__like-container">
                   <button type="button" class="card__like"></button>
-                  <span class="card__likes-counter">1</span>
+                  <span class="card__likes-counter"></span>
                 </div>
               </div>
               <button type="button" class="card__trash"></button>
@@ -103,6 +99,8 @@
             type="submit"
             class="popup__save"
             data-disabled="popup__save_disabled"
+            data-onload="Сохранение..."
+            data-default="Сохранить"
           >
             Сохранить
           </button>
@@ -149,6 +147,8 @@
             type="submit"
             class="popup__save"
             data-disabled="popup__save_disabled"
+            data-onload="Сохранение..."
+            data-default="Создать"
           >
             Создать
           </button>
@@ -179,6 +179,8 @@
             type="submit"
             class="popup__save"
             data-disabled="popup__save_disabled"
+            data-onload="Сохранение..."
+            data-default="Сохранить"
           >
             Сохранить
           </button>

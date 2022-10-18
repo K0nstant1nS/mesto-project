@@ -1,7 +1,10 @@
 const personAddPopup = document.querySelector("#profile__add");
+const personAddSubmit = personAddPopup.querySelector(".popup__save");
 const avatarChangePopup = document.querySelector("#profile__avatar");
+const avatarChangeSubmit = avatarChangePopup.querySelector(".popup__save");
 const cardsContainerElement = document.querySelector(".places-cards");
 const personEditPopup = document.querySelector("#profile__edit");
+const personEditSubmit = personEditPopup.querySelector(".popup__save");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileAddButton = document.querySelector(".profile__add-button");
 const profileAvatarImage = document.querySelector(".profile__image");
@@ -39,9 +42,12 @@ const avatarFormObj = {
 
 export {
   personAddPopup,
+  personAddSubmit,
   avatarChangePopup,
+  avatarChangeSubmit,
   cardsContainerElement,
   personEditPopup,
+  personEditSubmit,
   profileEditButton,
   profileAddButton,
   profileAvatarImage,

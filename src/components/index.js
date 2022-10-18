@@ -5,12 +5,14 @@ import { makeNewCard } from "./card";
 import { openModalWindow, closeModalWindow, closePopup } from "./modal";
 import {
   personAddPopup,
+  personAddSubmit,
   avatarChangePopup,
+  avatarChangeSubmit,
   cardsContainerElement,
   personEditPopup,
+  personEditSubmit,
   profileEditButton,
   profileAddButton,
-  profileAvatarImage,
   avatarChangeButton,
   avatarImageInput,
   personNameElement,
@@ -25,6 +27,8 @@ import {
   cardFormObj,
   avatarFormObj,
 } from "./variables";
+import { changeProfileAvatar, changeProfileInfo } from "./utils";
+import { postCard, patchAvatar, patchProfile, getProfileInfo } from "./api";
 
 function addCard(cardObj) {
   //Добавление карточки
@@ -33,25 +37,51 @@ function addCard(cardObj) {
 
 function addCardInPopup(evt) {
   //Добавление карточки через popup
+  personAddSubmit.textContent = personAddSubmit.dataset.onload;
   evt.preventDefault();
-  const newCard = {
-    name: pictureNameInput.value,
-    link: pictureLinkInput.value,
-  };
-  const img = new Image();
-  img.onload = function () {
-    addCard(newCard);
-  };
-  img.src = newCard.link;
-  closeModalWindow(personAddPopup);
-  cardFormElement.reset();
+  postCard(pictureNameInput, pictureLinkInput)
+    .then((data) => {
+      return data.json();
+    })
+    .then((obj) => {
+      const img = new Image();
+      img.onload = function () {
+        addCard(obj);
+      };
+      img.src = obj.link;
+      closeModalWindow(personAddPopup);
+      personAddSubmit.textContent = personAddSubmit.dataset.default;
+      cardFormElement.reset();
+    })
+    .catch((err) => {
+      throw new Error(err);
+    });
 }
 
-function changeAvatar(evt) {
+function changeAvatarOnSubmit(evt) {
   evt.preventDefault();
-  profileAvatarImage.src = avatarImageInput.value;
-  closeModalWindow(avatarChangePopup);
-  avatarFormElement.reset();
+  avatarChangeSubmit.textContent = avatarChangeSubmit.dataset.onload;
+  patchAvatar(avatarImageInput).then(() => {
+    changeProfileAvatar(avatarImageInput.value);
+    closeModalWindow(avatarChangePopup);
+    avatarChangeSubmit.textContent = avatarChangeSubmit.dataset.default;
+    avatarFormElement.reset();
+  });
+}
+
+function changeProfileOnSubmit(evt) {
+  evt.preventDefault();
+  // --Изменение профиля --
+  personEditSubmit.textContent = personEditSubmit.dataset.onload;
+  patchProfile(personNameInput, personAboutInput).then((data) => {
+    changeProfileInfo({
+      name: personNameInput.value,
+      about: personAboutInput.value,
+    });
+    personEditSubmit.textContent = personEditSubmit.dataset.onload;
+  });
+  //
+  closeModalWindow(personEditPopup);
 }
 
 // --Инициализация валидации форм--
@@ -70,13 +100,19 @@ document.querySelectorAll(".popup").forEach(function (item) {
 
 // --Инициализация карточек--
 
-initialCards.forEach(function (cardObj) {
-  const img = new Image();
-  img.onload = function () {
-    addCard(cardObj);
-  };
-  img.src = cardObj.link;
-});
+initialCards
+  .then((res) => {
+    res.forEach(function (cardObj) {
+      const img = new Image();
+      img.onload = function () {
+        addCard(cardObj);
+      };
+      img.src = cardObj.link;
+    });
+  })
+  .catch((err) => {
+    throw new Error(err);
+  });
 
 //
 
@@ -90,12 +126,7 @@ document.addEventListener("mousedown", (evt) => {
 
 document
   .querySelector("[name='guest-form']")
-  .addEventListener("submit", (evt) => {
-    evt.preventDefault();
-    personNameElement.textContent = personNameInput.value;
-    personAboutElement.textContent = personAboutInput.value;
-    closeModalWindow(personEditPopup);
-  });
+  .addEventListener("submit", changeProfileOnSubmit);
 
 profileEditButton.addEventListener("click", function () {
   //Получение значений при открытии popup
@@ -124,4 +155,15 @@ avatarChangeButton.addEventListener("click", function (evt) {
 
 cardFormElement.addEventListener("submit", addCardInPopup);
 
-avatarFormElement.addEventListener("submit", changeAvatar);
+avatarFormElement.addEventListener("submit", changeAvatarOnSubmit);
+
+// --Подгрузка ползователя--
+
+getProfileInfo()
+  .then((data) => {
+    return data.json();
+  })
+  .then((personObj) => {
+    changeProfileInfo(personObj);
+    changeProfileAvatar(personObj.avatar);
+  });
