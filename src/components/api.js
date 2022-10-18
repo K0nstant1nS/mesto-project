@@ -14,17 +14,22 @@ function dataParse(data) {
   }
 }
 
+const getProfileInfo = function () {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: "GET",
+    headers: {
+      authorization: config.headers.authorization,
+    },
+  }).then(dataParse);
+};
+
 const getLikeDelete = function (cardObj) {
   return fetch(`${config.baseUrl}/cards/likes/${cardObj._id}`, {
     method: "DELETE",
     headers: {
       authorization: config.headers.authorization,
     },
-  })
-    .then(dataParse)
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(dataParse);
 };
 
 const getLikeAdded = function (cardObj) {
@@ -33,24 +38,7 @@ const getLikeAdded = function (cardObj) {
     headers: {
       authorization: config.headers.authorization,
     },
-  })
-    .then(dataParse)
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-const getProfileInfo = function () {
-  return fetch(`${config.baseUrl}/users/me`, {
-    method: "GET",
-    headers: {
-      authorization: config.headers.authorization,
-    },
-  })
-    .then(dataParse)
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(dataParse);
 };
 
 const getCardRemoved = function (cardObj) {
@@ -59,7 +47,7 @@ const getCardRemoved = function (cardObj) {
     headers: {
       authorization: config.headers.authorization,
     },
-  });
+  }).then(dataParse);
 };
 
 const initialCards = function () {
@@ -68,11 +56,7 @@ const initialCards = function () {
     headers: {
       authorization: config.headers.authorization,
     },
-  })
-    .then(dataParse)
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(dataParse);
 };
 
 const postCard = function (pictureNameInput, pictureLinkInput) {
@@ -83,11 +67,7 @@ const postCard = function (pictureNameInput, pictureLinkInput) {
       name: pictureNameInput.value,
       link: pictureLinkInput.value,
     }),
-  })
-    .then(dataParse)
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(dataParse);
 };
 
 const patchAvatar = function (avatarImageInput) {
@@ -97,7 +77,7 @@ const patchAvatar = function (avatarImageInput) {
     body: JSON.stringify({
       avatar: avatarImageInput.value,
     }),
-  });
+  }).then(dataParse);
 };
 
 const patchProfile = function (personNameInput, personAboutInput) {
@@ -108,7 +88,7 @@ const patchProfile = function (personNameInput, personAboutInput) {
       name: personNameInput.value,
       about: personAboutInput.value,
     }),
-  });
+  }).then(dataParse);
 };
 
 export {
