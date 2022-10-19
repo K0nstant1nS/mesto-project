@@ -32,17 +32,15 @@ function checkLikeState(cardObj, idObj) {
 
 // --Инициализация состояния лайка--
 
-function initLikeState(cardObj, likeElement, idObj) {
-  if (JSON.stringify(cardObj.likes).includes(JSON.stringify(idObj))) {
-    likeElement.classList.add("card__like_active");
-  } else {
-    likeElement.classList.remove("card__like_active");
-  }
+function initLikeState(likeElement, result) {
+  result
+    ? likeElement.classList.add("card__like_active")
+    : likeElement.classList.remove("card__like_active");
 }
 
-function makeNewCard(Obj, idObj, prepareTrashButton, addLike, deleteLike) {
+function makeNewCard(data) {
   //Создание карточки
-  const cardObj = Obj;
+  const cardObj = data.Obj;
   const newCardElement = cardElementTemplate.cloneNode(true);
   const likeButtonElement = newCardElement.querySelector(".card__like");
   const trashButtonElement = newCardElement.querySelector(".card__trash");
@@ -55,27 +53,27 @@ function makeNewCard(Obj, idObj, prepareTrashButton, addLike, deleteLike) {
   cardImageElement.src = cardObj.link;
   newCardElement.querySelector(".card__caption").textContent = cardObj.name;
 
-  initLikeState(cardObj, likeButtonElement, idObj);
+  initLikeState(likeButtonElement, checkLikeState(cardObj, data.idObj));
 
   likeButtonElement.addEventListener("click", () => {
-    checkLikeState(cardObj, idObj)
-      ? deleteLike(
-          cardObj,
-          likeButtonElement,
-          likesCountedElement,
-          idObj,
-          changeLikeState
-        )
-      : addLike(
-          cardObj,
-          likeButtonElement,
-          likesCountedElement,
-          idObj,
-          changeLikeState
-        );
+    checkLikeState(cardObj, data.idObj)
+      ? data.deleteLike({
+          cardObj: cardObj,
+          likeElement: likeButtonElement,
+          counterElement: likesCountedElement,
+          idObj: data.idObj,
+          changeStateFunc: changeLikeState,
+        })
+      : data.addLike({
+          cardObj: cardObj,
+          likeElement: likeButtonElement,
+          counterElement: likesCountedElement,
+          idObj: data.idObj,
+          changeStateFunc: changeLikeState,
+        });
   });
 
-  prepareTrashButton(cardObj, trashButtonElement, idObj);
+  data.prepareTrashButton(cardObj, trashButtonElement, data.idObj);
 
   cardImageElement.addEventListener("click", function () {
     prepareImagePopup(cardObj);

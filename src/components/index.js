@@ -55,12 +55,12 @@ function changeProfileAvatar(url) {
 
 // --Добавление лайка--
 
-function addLike(cardObj, likeElement, counterElement, idObj, changeStateFunc) {
-  getLikeAdded(cardObj)
+function addLike(data) {
+  getLikeAdded(data.cardObj)
     .then((obj) => {
-      counterElement.textContent = obj.likes.length;
-      changeStateFunc(likeElement);
-      cardObj.likes.push(idObj);
+      data.counterElement.textContent = obj.likes.length;
+      data.changeStateFunc(data.likeElement);
+      data.cardObj.likes.push(data.idObj);
     })
     .catch((err) => {
       console.log(err);
@@ -69,19 +69,13 @@ function addLike(cardObj, likeElement, counterElement, idObj, changeStateFunc) {
 
 // --Удаление лайка--
 
-function deleteLike(
-  cardObj,
-  likeElement,
-  counterElement,
-  idObj,
-  changeStateFunc
-) {
-  getLikeDelete(cardObj)
+function deleteLike(data) {
+  getLikeDelete(data.cardObj)
     .then((obj) => {
-      counterElement.textContent = obj.likes.length;
-      changeStateFunc(likeElement);
-      cardObj.likes = cardObj.likes.filter(function (item) {
-        return item._id !== idObj._id;
+      data.counterElement.textContent = obj.likes.length;
+      data.changeStateFunc(data.likeElement);
+      data.cardObj.likes = data.cardObj.likes.filter(function (item) {
+        return item._id !== data.idObj._id;
       });
     })
     .catch((err) => {
@@ -91,9 +85,13 @@ function deleteLike(
 
 // --Обаботка состояния элемента для удаления карточки--
 
+function checkTrashButtonState(obj, idObj) {
+  return idObj._id === obj.owner._id ? true : false;
+}
+
 function prepareTrashButton(obj, trashElement, idObj) {
-  if (idObj._id === obj.owner._id) {
-    trashElement.addEventListener("click", function (evt) {
+  if (checkTrashButtonState(obj, idObj)) {
+    trashElement.addEventListener("click", function () {
       openModalWindow(cardRemovePopup);
       cardRemoveForm.onsubmit = function (evt) {
         evt.preventDefault();
@@ -127,7 +125,13 @@ function removeCard(cardObj, cardElement) {
 function addCard(cardObj, idObj) {
   //Добавление карточки
   cardsContainerElement.prepend(
-    makeNewCard(cardObj, idObj, prepareTrashButton, addLike, deleteLike)
+    makeNewCard({
+      Obj: cardObj,
+      idObj: idObj,
+      prepareTrashButton: prepareTrashButton,
+      addLike: addLike,
+      deleteLike: deleteLike,
+    })
   );
 }
 
