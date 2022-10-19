@@ -3,6 +3,9 @@ import { validateForm, prepareOnOpen } from "./validate";
 import { makeNewCard } from "./card";
 import { openModalWindow, closeModalWindow, closePopup } from "./modal";
 import {
+  cardRemovePopup,
+  cardRemoveForm,
+  cardRemoveSubmitButton,
   personAddPopup,
   personAddSubmit,
   avatarChangePopup,
@@ -12,6 +15,7 @@ import {
   personEditSubmit,
   profileEditButton,
   profileAddButton,
+  profileAvatarImage,
   avatarChangeButton,
   avatarImageInput,
   personNameElement,
@@ -26,18 +30,105 @@ import {
   cardFormObj,
   avatarFormObj,
 } from "./variables";
-import { changeProfileAvatar, changeProfileInfo } from "./utils";
 import {
   postCard,
   patchAvatar,
   patchProfile,
   getProfileInfo,
   initialCards,
+  getLikeAdded,
+  getLikeDelete,
+  getCardRemoved,
 } from "./api";
+
+// Благодарю за ревью, пока самое приятное за время обучения =)
+
+// --Изменение информации в профиле--
+function changeProfileInfo(data) {
+  personNameElement.textContent = data.name;
+  personAboutElement.textContent = data.about;
+}
+
+function changeProfileAvatar(url) {
+  profileAvatarImage.src = url;
+}
+
+// --Добавление лайка--
+
+function addLike(cardObj, likeElement, counterElement, idObj, changeStateFunc) {
+  getLikeAdded(cardObj)
+    .then((obj) => {
+      counterElement.textContent = obj.likes.length;
+      changeStateFunc(likeElement);
+      cardObj.likes.push(idObj);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+// --Удаление лайка--
+
+function deleteLike(
+  cardObj,
+  likeElement,
+  counterElement,
+  idObj,
+  changeStateFunc
+) {
+  getLikeDelete(cardObj)
+    .then((obj) => {
+      counterElement.textContent = obj.likes.length;
+      changeStateFunc(likeElement);
+      cardObj.likes = cardObj.likes.filter(function (item) {
+        return item._id !== idObj._id;
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+// --Обаботка состояния элемента для удаления карточки--
+
+function prepareTrashButton(obj, trashElement, idObj) {
+  if (idObj._id === obj.owner._id) {
+    trashElement.addEventListener("click", function (evt) {
+      openModalWindow(cardRemovePopup);
+      cardRemoveForm.onsubmit = function (evt) {
+        evt.preventDefault();
+        cardRemoveSubmitButton.textContent =
+          cardRemoveSubmitButton.dataset.onload;
+        removeCard(obj, trashElement.parentElement);
+      };
+    });
+  } else {
+    trashElement.remove();
+  }
+}
+
+// --Удаление карты--
+
+function removeCard(cardObj, cardElement) {
+  getCardRemoved(cardObj)
+    .then(() => {
+      cardElement.remove();
+      closeModalWindow(cardRemovePopup);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      cardRemoveSubmitButton.textContent =
+        cardRemoveSubmitButton.dataset.default;
+    });
+}
 
 function addCard(cardObj, idObj) {
   //Добавление карточки
-  cardsContainerElement.prepend(makeNewCard(cardObj, idObj));
+  cardsContainerElement.prepend(
+    makeNewCard(cardObj, idObj, prepareTrashButton, addLike, deleteLike)
+  );
 }
 
 function addCardInPopup(evt) {
@@ -52,13 +143,17 @@ function addCardInPopup(evt) {
       };
       img.src = obj.link;
       closeModalWindow(personAddPopup);
-      personAddSubmit.textContent = personAddSubmit.dataset.default;
       cardFormElement.reset();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      personAddSubmit.textContent = personAddSubmit.dataset.default;
     });
 }
+
+// --Запрос на замену аватара--
 
 function changeAvatarOnSubmit(evt) {
   evt.preventDefault();
@@ -66,14 +161,18 @@ function changeAvatarOnSubmit(evt) {
   patchAvatar(avatarImageInput)
     .then(() => {
       changeProfileAvatar(avatarImageInput.value);
-      avatarChangeSubmit.textContent = avatarChangeSubmit.dataset.default;
+      closeModalWindow(avatarChangePopup);
       avatarFormElement.reset();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      avatarChangeSubmit.textContent = avatarChangeSubmit.dataset.default;
     });
-  closeModalWindow(avatarChangePopup);
 }
+
+// --Запрос на замену информации в профиле--
 
 function changeProfileOnSubmit(evt) {
   evt.preventDefault();
@@ -85,13 +184,15 @@ function changeProfileOnSubmit(evt) {
         name: personNameInput.value,
         about: personAboutInput.value,
       });
-      personEditSubmit.textContent = personEditSubmit.dataset.onload;
+      closeModalWindow(personEditPopup);
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      personEditSubmit.textContent = personEditSubmit.dataset.default;
     });
   //
-  closeModalWindow(personEditPopup);
 }
 
 // --Инициализация валидации форм--
@@ -109,23 +210,18 @@ document.querySelectorAll(".popup").forEach(function (item) {
 });
 
 // --Инициализация карточек--
-getProfileInfo()
-  .then((idObj) => {
-    initialCards()
-      .then((res) => {
-        res.forEach(function (cardObj) {
-          const img = new Image();
-          img.onload = function () {
-            addCard(cardObj, idObj);
-          };
-          img.src = cardObj.link;
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    changeProfileInfo(idObj);
-    changeProfileAvatar(idObj.avatar);
+
+Promise.all([getProfileInfo(), initialCards()])
+  .then((values) => {
+    values[1].forEach(function (cardObj) {
+      const img = new Image();
+      img.onload = function () {
+        addCard(cardObj, values[0]);
+      };
+      img.src = cardObj.link;
+    });
+    changeProfileInfo(values[0]);
+    changeProfileAvatar(values[0].avatar);
   })
   .catch((err) => {
     console.log(err);

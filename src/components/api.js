@@ -6,7 +6,7 @@ const config = {
   },
 };
 
-function dataParse(data) {
+function checkData(data) {
   if (data.ok) {
     return data.json();
   } else {
@@ -20,7 +20,7 @@ const getProfileInfo = function () {
     headers: {
       authorization: config.headers.authorization,
     },
-  }).then(dataParse);
+  }).then(checkData);
 };
 
 const getLikeDelete = function (cardObj) {
@@ -29,7 +29,7 @@ const getLikeDelete = function (cardObj) {
     headers: {
       authorization: config.headers.authorization,
     },
-  }).then(dataParse);
+  }).then(checkData);
 };
 
 const getLikeAdded = function (cardObj) {
@@ -38,7 +38,7 @@ const getLikeAdded = function (cardObj) {
     headers: {
       authorization: config.headers.authorization,
     },
-  }).then(dataParse);
+  }).then(checkData);
 };
 
 const getCardRemoved = function (cardObj) {
@@ -47,7 +47,7 @@ const getCardRemoved = function (cardObj) {
     headers: {
       authorization: config.headers.authorization,
     },
-  }).then(dataParse);
+  }).then(checkData);
 };
 
 const initialCards = function () {
@@ -56,7 +56,7 @@ const initialCards = function () {
     headers: {
       authorization: config.headers.authorization,
     },
-  }).then(dataParse);
+  }).then(checkData);
 };
 
 const postCard = function (pictureNameInput, pictureLinkInput) {
@@ -67,7 +67,7 @@ const postCard = function (pictureNameInput, pictureLinkInput) {
       name: pictureNameInput.value,
       link: pictureLinkInput.value,
     }),
-  }).then(dataParse);
+  }).then(checkData);
 };
 
 const patchAvatar = function (avatarImageInput) {
@@ -77,7 +77,7 @@ const patchAvatar = function (avatarImageInput) {
     body: JSON.stringify({
       avatar: avatarImageInput.value,
     }),
-  }).then(dataParse);
+  }).then(checkData);
 };
 
 const patchProfile = function (personNameInput, personAboutInput) {
@@ -88,7 +88,7 @@ const patchProfile = function (personNameInput, personAboutInput) {
       name: personNameInput.value,
       about: personAboutInput.value,
     }),
-  }).then(dataParse);
+  }).then(checkData);
 };
 
 export {
