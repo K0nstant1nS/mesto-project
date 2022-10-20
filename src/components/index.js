@@ -79,9 +79,11 @@ function deleteLike(data) {
 // --Удаление карты--
 
 function removeCard(removeData) {
+  cardRemoveSubmitButton.textContent = cardRemoveSubmitButton.dataset.onload;
   getCardRemoved(removeData.cardRemoveTargetObj)
     .then(() => {
       removeData.remove(removeData.cardRemoveTargetElement);
+      closeModalWindow(cardRemovePopup);
     })
     .catch((err) => {
       console.log(err);
@@ -251,5 +253,4 @@ avatarFormElement.addEventListener("submit", changeAvatarOnSubmit);
 cardRemoveForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
   removeCard(cardRemoveData);
-  closeModalWindow(cardRemovePopup);
 });
