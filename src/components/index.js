@@ -121,11 +121,7 @@ function addCardInPopup(evt) {
   evt.preventDefault();
   postCard(pictureNameInput, pictureLinkInput)
     .then((obj) => {
-      const img = new Image();
-      img.onload = function () {
-        addCard(obj, obj.owner);
-      };
-      img.src = obj.link;
+      addCard(obj, obj.owner);
       closeModalWindow(personAddPopup);
       cardFormElement.reset();
     })
@@ -198,11 +194,8 @@ document.querySelectorAll(".popup").forEach(function (item) {
 Promise.all([getProfileInfo(), initialCards()])
   .then((values) => {
     values[1].forEach(function (cardObj) {
-      const img = new Image();
-      img.onload = function () {
-        initCard(cardObj, values[0]);
-      };
-      img.src = cardObj.link;
+      // Убрал пока проверку onload, из-за нее при первой загрузке карточки появляются в порядке этой самой загрузки
+      initCard(cardObj, values[0]);
     });
     changeProfileInfo(values[0]);
     changeProfileAvatar(values[0].avatar);
