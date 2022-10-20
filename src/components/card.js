@@ -1,10 +1,13 @@
 import { openModalWindow } from "./modal";
 import {
   popupElement,
+  cardRemovePopup,
   cardElementTemplate,
   popupImageTitle,
   popupImage,
 } from "./variables";
+
+const cardRemoveData = {};
 
 function prepareImagePopup(cardObj) {
   // Внесение данных в моальное окно с изображением
@@ -14,10 +17,26 @@ function prepareImagePopup(cardObj) {
   openModalWindow(popupElement);
 }
 
+function removeCardFromDOM(cardElement) {
+  cardElement.remove();
+}
+
+cardRemoveData.remove = removeCardFromDOM;
+
 // --Переключение сосотояния лайка--
 
-function changeLikeState(likeElement) {
-  likeElement.classList.toggle("card__like_active");
+function changeLikeState(data, thenObj, bool) {
+  if (bool) {
+    data.counterElement.textContent = thenObj.likes.length;
+    data.likeElement.classList.toggle("card__like_active");
+    data.cardObj.likes.push(data.idObj);
+  } else {
+    data.counterElement.textContent = thenObj.likes.length;
+    data.likeElement.classList.toggle("card__like_active");
+    data.cardObj.likes = data.cardObj.likes.filter(function (item) {
+      return item._id !== data.idObj._id;
+    });
+  }
 }
 
 // --Проверка на наличие id пользователя в объекте влайдельца карты--
@@ -36,6 +55,20 @@ function initLikeState(likeElement, result) {
   result
     ? likeElement.classList.add("card__like_active")
     : likeElement.classList.remove("card__like_active");
+}
+
+function checkTrashButtonState(obj, idObj) {
+  return idObj._id === obj.owner._id ? true : false;
+}
+
+function openCardRemovePopup(obj, trashElement) {
+  openModalWindow(cardRemovePopup);
+  cardRemoveData.cardRemoveTargetObj = obj;
+  cardRemoveData.cardRemoveTargetElement = trashElement.parentElement;
+}
+
+function initTrashButtonState(trashButtonElement, result) {
+  result ? "" : trashButtonElement.remove();
 }
 
 function makeNewCard(data) {
@@ -73,7 +106,14 @@ function makeNewCard(data) {
         });
   });
 
-  data.prepareTrashButton(cardObj, trashButtonElement, data.idObj);
+  initTrashButtonState(
+    trashButtonElement,
+    checkTrashButtonState(cardObj, data.idObj)
+  );
+
+  trashButtonElement.addEventListener("click", function () {
+    openCardRemovePopup(cardObj, trashButtonElement);
+  });
 
   cardImageElement.addEventListener("click", function () {
     prepareImagePopup(cardObj);
@@ -82,4 +122,4 @@ function makeNewCard(data) {
   return newCardElement;
 }
 
-export { makeNewCard };
+export { makeNewCard, cardRemoveData };

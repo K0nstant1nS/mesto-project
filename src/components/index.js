@@ -1,6 +1,6 @@
 import "../pages/index.css";
 import { validateForm, prepareOnOpen } from "./validate";
-import { makeNewCard } from "./card";
+import { makeNewCard, cardRemoveData } from "./card";
 import { openModalWindow, closeModalWindow, closePopup } from "./modal";
 import {
   cardRemovePopup,
@@ -41,8 +41,6 @@ import {
   getCardRemoved,
 } from "./api";
 
-// Благодарю за ревью, пока самое приятное за время обучения =)
-
 // --Изменение информации в профиле--
 function changeProfileInfo(data) {
   personNameElement.textContent = data.name;
@@ -58,9 +56,7 @@ function changeProfileAvatar(url) {
 function addLike(data) {
   getLikeAdded(data.cardObj)
     .then((obj) => {
-      data.counterElement.textContent = obj.likes.length;
-      data.changeStateFunc(data.likeElement);
-      data.cardObj.likes.push(data.idObj);
+      data.changeStateFunc(data, obj, true);
     })
     .catch((err) => {
       console.log(err);
@@ -72,46 +68,19 @@ function addLike(data) {
 function deleteLike(data) {
   getLikeDelete(data.cardObj)
     .then((obj) => {
-      data.counterElement.textContent = obj.likes.length;
-      data.changeStateFunc(data.likeElement);
-      data.cardObj.likes = data.cardObj.likes.filter(function (item) {
-        return item._id !== data.idObj._id;
-      });
+      data.changeStateFunc(data, obj);
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-// --Обаботка состояния элемента для удаления карточки--
-
-function checkTrashButtonState(obj, idObj) {
-  return idObj._id === obj.owner._id ? true : false;
-}
-
-function prepareTrashButton(obj, trashElement, idObj) {
-  if (checkTrashButtonState(obj, idObj)) {
-    trashElement.addEventListener("click", function () {
-      openModalWindow(cardRemovePopup);
-      cardRemoveForm.onsubmit = function (evt) {
-        evt.preventDefault();
-        cardRemoveSubmitButton.textContent =
-          cardRemoveSubmitButton.dataset.onload;
-        removeCard(obj, trashElement.parentElement);
-      };
-    });
-  } else {
-    trashElement.remove();
-  }
-}
-
 // --Удаление карты--
 
-function removeCard(cardObj, cardElement) {
-  getCardRemoved(cardObj)
+function removeCard(removeData) {
+  getCardRemoved(removeData.cardRemoveTargetObj)
     .then(() => {
-      cardElement.remove();
-      closeModalWindow(cardRemovePopup);
+      removeData.remove(removeData.cardRemoveTargetElement);
     })
     .catch((err) => {
       console.log(err);
@@ -128,7 +97,18 @@ function addCard(cardObj, idObj) {
     makeNewCard({
       Obj: cardObj,
       idObj: idObj,
-      prepareTrashButton: prepareTrashButton,
+      addLike: addLike,
+      deleteLike: deleteLike,
+    })
+  );
+}
+
+function initCard(cardObj, idObj) {
+  //Добавление карточки
+  cardsContainerElement.append(
+    makeNewCard({
+      Obj: cardObj,
+      idObj: idObj,
       addLike: addLike,
       deleteLike: deleteLike,
     })
@@ -220,7 +200,7 @@ Promise.all([getProfileInfo(), initialCards()])
     values[1].forEach(function (cardObj) {
       const img = new Image();
       img.onload = function () {
-        addCard(cardObj, values[0]);
+        initCard(cardObj, values[0]);
       };
       img.src = cardObj.link;
     });
@@ -273,3 +253,9 @@ avatarChangeButton.addEventListener("click", function (evt) {
 cardFormElement.addEventListener("submit", addCardInPopup);
 
 avatarFormElement.addEventListener("submit", changeAvatarOnSubmit);
+
+cardRemoveForm.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+  removeCard(cardRemoveData);
+  closeModalWindow(cardRemovePopup);
+});
