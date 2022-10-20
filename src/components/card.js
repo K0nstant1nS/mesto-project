@@ -5,9 +5,8 @@ import {
   cardElementTemplate,
   popupImageTitle,
   popupImage,
+  cardRemoveData,
 } from "./variables";
-
-const cardRemoveData = {};
 
 function prepareImagePopup(cardObj) {
   // Внесение данных в моальное окно с изображением
@@ -122,4 +121,4 @@ function makeNewCard(data) {
   return newCardElement;
 }
 
-export { makeNewCard, cardRemoveData };
+export { makeNewCard };

@@ -1,6 +1,6 @@
 import "../pages/index.css";
 import { validateForm, prepareOnOpen } from "./validate";
-import { makeNewCard, cardRemoveData } from "./card";
+import { makeNewCard } from "./card";
 import { openModalWindow, closeModalWindow, closePopup } from "./modal";
 import {
   cardRemovePopup,
@@ -29,6 +29,7 @@ import {
   guestFormObj,
   cardFormObj,
   avatarFormObj,
+  cardRemoveData,
 } from "./variables";
 import {
   postCard,

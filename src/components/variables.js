@@ -43,6 +43,8 @@ const avatarFormObj = {
   inputSelector: ".popup__text-input",
 };
 
+const cardRemoveData = {};
+
 export {
   cardRemovePopup,
   cardRemoveForm,
@@ -74,4 +76,5 @@ export {
   avatarFormObj,
   popupImageTitle,
   popupImage,
+  cardRemoveData,
 };
