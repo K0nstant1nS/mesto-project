@@ -1,6 +1,7 @@
 {
   "name": "mesto-project",
   "version": "1.0.0",
+  "homepage": "https://k0nstant1ns.github.io/mesto-project/",
   "description": "Модель профиля с функционалом смены пользователя и добавлением/удалением фотокарточек.",
   "main": "index.js",
   "scripts": {
@@ -18,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/Olegofr1endo/mesto-project/issues"
   },
-  "homepage": "https://github.com/Olegofr1endo/mesto-project#readme",
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/preset-env": "^7.19.4",
